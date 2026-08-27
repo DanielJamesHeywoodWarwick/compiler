@@ -2,4 +2,24 @@
 
 import PackageDescription
 
-let package = Package(name: "compiler")
+let package = Package(
+    name: "compiler",
+    products: [.executable(name: "compiler", targets: ["compiler"])],
+    dependencies: [
+        .package(
+            url: "https://github.com/apple/swift-argument-parser",
+            from: "1.0.0"
+        )
+    ],
+    targets: [
+        .executableTarget(
+            name: "compiler",
+            dependencies: [
+                .product(
+                    name: "ArgumentParser",
+                    package: "swift-argument-parser"
+                )
+            ]
+        )
+    ]
+)
