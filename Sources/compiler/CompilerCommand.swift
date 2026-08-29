@@ -10,6 +10,27 @@ struct CompilerCommand: ParsableCommand {
     )
     var sourcePaths: [FilePath]
     
+    func validate() throws {
+        for path in sourcePaths {
+            guard let `extension` = path.extension else {
+                throw ValidationError(
+                    """
+                    Expected '\(path)' to have extension 'source', but it has \
+                    no extension
+                    """
+                )
+            }
+            guard `extension` == "source" else {
+                throw ValidationError(
+                    """
+                    Expected '\(path)' to have extension 'source', but it has \
+                    extension '\(`extension`)'
+                    """
+                )
+            }
+        }
+    }
+    
     static var configuration: CommandConfiguration {
         CommandConfiguration(
             commandName: "compiler",
