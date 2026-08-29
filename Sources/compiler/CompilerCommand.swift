@@ -1,7 +1,14 @@
 import ArgumentParser
+import SystemPackage
 
 @main
 struct CompilerCommand: ParsableCommand {
+    
+    @Argument(
+        help: "The paths to the source files.",
+        transform: { string in FilePath(string) }
+    )
+    var sourcePaths: [FilePath]
     
     static var configuration: CommandConfiguration {
         CommandConfiguration(
