@@ -10,7 +10,14 @@ let package = Package(
             url: "https://github.com/apple/swift-argument-parser",
             from: "1.0.0"
         ),
-        .package(url: "https://github.com/apple/swift-system", from: "1.0.0")
+        .package(
+            url: "https://github.com/apple/swift-async-algorithms",
+            from: "1.0.0"
+        ),
+        .package(
+            url: "https://github.com/apple/swift-system",
+            from: "1.0.0"
+        )
     ],
     targets: [
         .executableTarget(
@@ -20,7 +27,14 @@ let package = Package(
                     name: "ArgumentParser",
                     package: "swift-argument-parser"
                 ),
-                .product(name: "SystemPackage", package: "swift-system")
+                .product(
+                    name: "AsyncAlgorithms",
+                    package: "swift-async-algorithms"
+                ),
+                .product(
+                    name: "SystemPackage",
+                    package: "swift-system"
+                )
             ]
         )
     ]
