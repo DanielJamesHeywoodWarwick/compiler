@@ -4,10 +4,11 @@ import PackageDescription
 
 let package = Package(
     name: "compiler",
+    platforms: [.macOS("26.0.0")],
     products: [.executable(name: "compiler", targets: ["compiler"])],
     dependencies: [
         .package(url: "https://github.com/apple/swift-argument-parser", from: "1.0.0"),
-        .package(url: "https://github.com/apple/swift-system", from: "1.0.0")
+        .package(url: "https://github.com/apple/swift-system", from: "1.7.0")
     ],
     targets: [
         .executableTarget(

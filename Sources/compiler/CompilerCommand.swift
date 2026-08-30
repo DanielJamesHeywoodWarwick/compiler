@@ -7,6 +7,21 @@ struct CompilerCommand: ParsableCommand {
     @Argument(help: "The paths to the source files.", transform: { string in FilePath(string) })
     var sourcePaths: [FilePath]
     
+    func run() throws {
+        let sourceFileContents = try sourcePaths.map { path in
+            let descriptor = try FileDescriptor.open(path, .readOnly)
+            return try descriptor.closeAfter {
+                guard let byteCount = Int(exactly: try descriptor.stat().size) else {
+                    throw ExitCode.failure
+                }
+                return try withUnsafeTemporaryAllocation(of: UInt8.self, capacity: byteCount) { buffer in
+                    _ = try descriptor.read(into: UnsafeMutableRawBufferPointer(buffer))
+                    return String(copying: try UTF8Span(validating: buffer.span))
+                }
+            }
+        }
+    }
+    
     func validate() throws {
         for path in sourcePaths {
             guard let `extension` = path.extension else {
