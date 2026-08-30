@@ -6,35 +6,15 @@ let package = Package(
     name: "compiler",
     products: [.executable(name: "compiler", targets: ["compiler"])],
     dependencies: [
-        .package(
-            url: "https://github.com/apple/swift-argument-parser",
-            from: "1.0.0"
-        ),
-        .package(
-            url: "https://github.com/apple/swift-async-algorithms",
-            from: "1.0.0"
-        ),
-        .package(
-            url: "https://github.com/apple/swift-system",
-            from: "1.0.0"
-        )
+        .package(url: "https://github.com/apple/swift-argument-parser", from: "1.0.0"),
+        .package(url: "https://github.com/apple/swift-system", from: "1.0.0")
     ],
     targets: [
         .executableTarget(
             name: "compiler",
             dependencies: [
-                .product(
-                    name: "ArgumentParser",
-                    package: "swift-argument-parser"
-                ),
-                .product(
-                    name: "AsyncAlgorithms",
-                    package: "swift-async-algorithms"
-                ),
-                .product(
-                    name: "SystemPackage",
-                    package: "swift-system"
-                )
+                .product(name: "ArgumentParser", package: "swift-argument-parser"),
+                .product(name: "SystemPackage", package: "swift-system")
             ]
         )
     ]

@@ -4,28 +4,19 @@ import SystemPackage
 @main
 struct CompilerCommand: ParsableCommand {
     
-    @Argument(
-        help: "The paths to the source files.",
-        transform: { string in FilePath(string) }
-    )
+    @Argument(help: "The paths to the source files.", transform: { string in FilePath(string) })
     var sourcePaths: [FilePath]
     
     func validate() throws {
         for path in sourcePaths {
             guard let `extension` = path.extension else {
                 throw ValidationError(
-                    """
-                    Expected '\(path)' to have extension 'source', but it has \
-                    no extension
-                    """
+                    "Expected '\(path)' to have extension 'source', but it has no extension"
                 )
             }
             guard `extension` == "source" else {
                 throw ValidationError(
-                    """
-                    Expected '\(path)' to have extension 'source', but it has \
-                    extension '\(`extension`)'
-                    """
+                    "Expected '\(path)' to have extension 'source', but it has extension '\(`extension`)'"
                 )
             }
         }
