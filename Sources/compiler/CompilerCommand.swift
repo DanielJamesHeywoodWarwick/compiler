@@ -8,6 +8,10 @@ struct CompilerCommand: ParsableCommand {
     var sourcePaths: [FilePath]
     
     func run() throws {
+        precondition(
+            sourcePaths.allSatisfy { path in path.extension == "source" },
+            "Expected validated source files to have extension 'source'"
+        )
         let sourceFileContents = try sourcePaths.map { path in
             let descriptor = try FileDescriptor.open(path, .readOnly)
             return try descriptor.closeAfter {
