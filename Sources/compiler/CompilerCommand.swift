@@ -15,7 +15,13 @@ struct CompilerCommand: ParsableCommand {
         let sourceFileContents = try sourcePaths.map { path in
             let descriptor = try FileDescriptor.open(path, .readOnly)
             return try descriptor.closeAfter {
-                guard let byteCount = Int(exactly: try descriptor.stat().size) else {
+#if os(Windows)
+                let rawByteCount = try descriptor.seek(offset: 0, from: .end)
+                try descriptor.seek(offset: 0, from: .start)
+#else
+                let rawByteCount = try descriptor.stat().size
+#endif
+                guard let byteCount = Int(exactly: rawByteCount) else {
                     throw ExitCode.failure
                 }
                 return try withUnsafeTemporaryAllocation(of: UInt8.self, capacity: byteCount) { buffer in
