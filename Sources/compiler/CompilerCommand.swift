@@ -23,9 +23,7 @@ struct CompilerCommand: ParsableCommand {
                     let rawByteCount = try descriptor.stat().size
 #endif
                     guard let byteCount = Int(exactly: rawByteCount) else {
-                        throw StringError(
-                            "Expected the file to be smaller than \(Int.max) bytes, but it is \(rawByteCount) bytes"
-                        )
+                        throw StringError("File is larger than \(Int.max) bytes")
                     }
                     return try withUnsafeTemporaryAllocation(of: UInt8.self, capacity: byteCount) { buffer in
                         var uninitializedBytes = UnsafeMutableRawBufferPointer(buffer)
