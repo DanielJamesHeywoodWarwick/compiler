@@ -12,7 +12,7 @@ struct CompilerCommand: ParsableCommand {
             sourcePaths.allSatisfy { path in path.extension == "source" },
             "Expected validated source files to have extension 'source'"
         )
-        let sourceFileContents = try sourcePaths.map { path in
+        let contentsOfSourceFiles = try sourcePaths.map { path in
             let descriptor = try FileDescriptor.open(path, .readOnly)
             return try descriptor.closeAfter {
 #if os(Windows)
@@ -22,10 +22,18 @@ struct CompilerCommand: ParsableCommand {
                 let rawByteCount = try descriptor.stat().size
 #endif
                 guard let byteCount = Int(exactly: rawByteCount) else {
-                    throw ExitCode.failure
+                    throw StringError(
+                        "Expected the file to be smaller than \(Int.max) bytes, but it is \(rawByteCount) bytes"
+                    )
                 }
                 return try withUnsafeTemporaryAllocation(of: UInt8.self, capacity: byteCount) { buffer in
-                    _ = try descriptor.read(into: UnsafeMutableRawBufferPointer(buffer))
+                    var uninitializedBytes = UnsafeMutableRawBufferPointer(buffer)
+                    while !uninitializedBytes.isEmpty {
+                        let bytesRead = try descriptor.read(into: uninitializedBytes)
+                        uninitializedBytes = UnsafeMutableRawBufferPointer(
+                            rebasing: uninitializedBytes.dropFirst(bytesRead)
+                        )
+                    }
                     return String(copying: try UTF8Span(validating: buffer.span))
                 }
             }
