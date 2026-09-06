@@ -40,7 +40,7 @@ struct CompilerCommand: ParsableCommand {
         }
     }
     
-    func validate() throws(ValidationError) {
+    func validate() throws {
         for path in sourcePaths {
             guard let `extension` = path.extension else {
                 throw ValidationError(
