@@ -35,7 +35,26 @@ struct CompilerCommand: ParsableCommand {
                                 rebasing: uninitializedBytes.dropFirst(bytesRead)
                             )
                         }
-                        return String(copying: try UTF8Span(validating: buffer.span))
+                        do throws(UTF8.ValidationError) {
+                            return String(copying: try UTF8Span(validating: buffer.span))
+                        } catch {
+                            let message: String
+                            switch error.kind {
+                            case .invalidNonSurrogateCodePointByte:
+                                message = "Invalid non-surrogate code point byte"
+                            case .overlongEncodingByte:
+                                message = "Overlong encoding byte"
+                            case .surrogateCodePointByte:
+                                message = "Surrogate code point byte"
+                            case .truncatedScalar:
+                                message = "Truncated scalar"
+                            case .unexpectedContinuationByte:
+                                message = "Unexpected continuation byte"
+                            default:
+                                fatalError()
+                            }
+                            throw StringError("UTF-8 validation failed: \(message)")
+                        }
                     }
                 }
             } catch {
