@@ -38,7 +38,7 @@ struct CompilerCommand: ParsableCommand {
                         do throws(UTF8.ValidationError) {
                             return String(copying: try UTF8Span(validating: buffer.span))
                         } catch {
-                            let message: String
+                            let message: String?
                             switch error.kind {
                             case .invalidNonSurrogateCodePointByte:
                                 message = "Invalid non-surrogate code point byte"
@@ -53,7 +53,7 @@ struct CompilerCommand: ParsableCommand {
                             default:
                                 fatalError()
                             }
-                            throw StringError("UTF-8 validation failed: \(message)")
+                            throw StringError("UTF-8 validation failed\(message.map { message in ": \(message)" } ?? "")")
                         }
                     }
                 }
