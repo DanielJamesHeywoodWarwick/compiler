@@ -1,6 +1,6 @@
 struct StringError: Error, CustomStringConvertible {
     
-    let message: String
+    var message: String
     
     init(_ message: String) {
         self.message = message
