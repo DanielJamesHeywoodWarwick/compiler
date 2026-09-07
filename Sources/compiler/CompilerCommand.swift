@@ -49,7 +49,7 @@ struct CompilerCommand: ParsableCommand {
                             case .unexpectedContinuationByte:
                                 message = "Unexpected continuation byte"
                             default:
-                                fatalError()
+                                message = nil
                             }
                             throw StringError("UTF-8 validation failed\(message.map { message in ": \(message)" } ?? "")")
                         }
