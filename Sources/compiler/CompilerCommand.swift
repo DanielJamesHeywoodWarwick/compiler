@@ -70,11 +70,9 @@ struct CompilerCommand: ParsableCommand {
                     )
                 }
             }
-            _ = try? FileDescriptor.standardError.writeAll(
-                "Warning: '\(path)' contains no declarations or definitions\n".utf8
-            )
+            printWarning("'\(path)' contains no declarations or definitions")
         }
-        _ = try? FileDescriptor.standardError.writeAll("Warning: Source files contain no 'external' definitions\n".utf8)
+        printWarning("Source files contain no 'external' definitions")
     }
     
     func validate() throws {
@@ -100,4 +98,10 @@ struct CompilerCommand: ParsableCommand {
             helpNames: .long
         )
     }
+}
+
+func printWarning(_ items: Any..., separator: String = " ") {
+    _ = try? FileDescriptor.standardError.writeAll(
+        "Warning: \(items.map { item in "\(item)" }.joined(separator: separator))\n".utf8
+    )
 }
