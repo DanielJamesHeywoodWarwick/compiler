@@ -100,8 +100,6 @@ struct CompilerCommand: ParsableCommand {
     }
 }
 
-func printWarning(_ items: Any..., separator: String = " ") {
-    _ = try? FileDescriptor.standardError.writeAll(
-        "Warning: \(items.map { item in "\(item)" }.joined(separator: separator))\n".utf8
-    )
+func printWarning(_ message: String) {
+    _ = try? FileDescriptor.standardError.writeAll("Warning: \(message)\n".utf8)
 }
