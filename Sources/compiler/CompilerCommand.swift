@@ -70,7 +70,11 @@ struct CompilerCommand: ParsableCommand {
                     )
                 }
             }
+            _ = try? FileDescriptor.standardError.writeAll(
+                "Warning: '\(path)' contains no declarations or definitions\n".utf8
+            )
         }
+        _ = try? FileDescriptor.standardError.writeAll("Warning: Source files contain no 'external' definitions\n".utf8)
     }
     
     func validate() throws {
