@@ -72,7 +72,7 @@ struct CompilerCommand: ParsableCommand {
             }
             printWarning("'\(path)' contains no declarations or definitions")
         }
-        printWarning("Source files contain no 'external' definitions")
+        printWarning("Source files contain no public external declarations or definitions")
     }
     
     func validate() throws {
