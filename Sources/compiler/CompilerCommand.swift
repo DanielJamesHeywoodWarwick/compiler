@@ -51,7 +51,9 @@ struct CompilerCommand: ParsableCommand {
                             default:
                                 message = nil
                             }
-                            throw StringError("UTF-8 validation failed\(message.map { message in ": \(message)" } ?? "")")
+                            throw StringError(
+                                "UTF-8 validation failed\(message.map { message in ": \(message)" } ?? "")"
+                            )
                         }
                     }
                 }
@@ -60,7 +62,9 @@ struct CompilerCommand: ParsableCommand {
             }
         }
         for (path, contents) in zip(sourcePaths, contentsOfSourceFiles) {
-            for (lineIndex, line) in contents.split(separator: /\R/, omittingEmptySubsequences: false).enumerated() {
+            for (lineIndex, line) in contents
+                .split(separator: /\R/, omittingEmptySubsequences: false)
+                .enumerated() {
                 if let match = line.firstMatch(of: /\H/) {
                     throw StringError(
                         """
