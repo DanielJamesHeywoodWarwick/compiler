@@ -1,5 +1,6 @@
 import ArgumentParser
 import SystemPackage
+import LLVM
 
 @main
 struct CompilerCommand: ParsableCommand {
