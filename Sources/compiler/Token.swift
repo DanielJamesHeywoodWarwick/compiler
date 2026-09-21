@@ -17,4 +17,6 @@ struct Token {
     }
     
     var kind: Kind
+    
+    var lineNumber: Int
 }
