@@ -15,4 +15,6 @@ struct Token {
         case closingBrace
         case arrow
     }
+    
+    var kind: Kind
 }
