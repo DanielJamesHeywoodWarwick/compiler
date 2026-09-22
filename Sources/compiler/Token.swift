@@ -24,7 +24,9 @@ struct Token {
     
     init(_ kind: Kind, atLine lineNumber: Int, column columnNumber: Int) {
         if case let .identifier(name) = kind {}
-        if case let .integerLiteral(words) = kind {}
+        if case let .integerLiteral(words) = kind {
+            precondition(!words.isEmpty, "Expected at least 1 word, but got 0")
+        }
         precondition(lineNumber >= 1, "Expected a line number of at least 1, but got \(lineNumber)")
         precondition(columnNumber >= 1, "Expected a column number of at least 1, but got \(columnNumber)")
         self.kind = kind
