@@ -23,9 +23,18 @@ struct Token {
     var columnNumber: Int
     
     init(_ kind: Kind, atLine lineNumber: Int, column columnNumber: Int) {
-        if case let .identifier(name) = kind {}
-        if case let .integerLiteral(words) = kind {
-            precondition(!words.isEmpty, "Expected at least 1 word, but got 0")
+        switch kind {
+        case let .identifier(name):
+            let keywords = ["external", "function", "public", "return"] as Set<String>
+            precondition(!keywords.contains(name), "'\(name)' cannot be an identifier, as it is a keyword")
+            precondition(
+                name.wholeMatch(of: /[A-Za-z][A-Za-z0-9]*/) != nil,
+                "Expected an identifier to start with a letter and contain only letters and digits"
+            )
+        case let .integerLiteral(words):
+            precondition(!words.isEmpty, "Expected an integer literal to have at least 1 word")
+        default:
+            break
         }
         precondition(lineNumber >= 1, "Expected a line number of at least 1, but got \(lineNumber)")
         precondition(columnNumber >= 1, "Expected a column number of at least 1, but got \(columnNumber)")
