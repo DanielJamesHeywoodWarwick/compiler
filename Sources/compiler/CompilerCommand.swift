@@ -30,9 +30,7 @@ struct CompilerCommand: ParsableCommand {
                         var uninitializedBytes = UnsafeMutableRawBufferPointer(buffer)
                         while !uninitializedBytes.isEmpty {
                             let bytesRead = try descriptor.read(into: uninitializedBytes)
-                            uninitializedBytes = UnsafeMutableRawBufferPointer(
-                                rebasing: uninitializedBytes.dropFirst(bytesRead)
-                            )
+                            uninitializedBytes = UnsafeMutableRawBufferPointer(rebasing: uninitializedBytes.dropFirst(bytesRead))
                         }
                         do throws(UTF8.ValidationError) {
                             return String(copying: try UTF8Span(validating: buffer.span))
@@ -52,9 +50,7 @@ struct CompilerCommand: ParsableCommand {
                             default:
                                 message = nil
                             }
-                            throw StringError(
-                                "UTF-8 validation failed\(message.map { message in ": \(message)" } ?? "")"
-                            )
+                            throw StringError( "UTF-8 validation failed\(message.map { message in ": \(message)" } ?? "")")
                         }
                     }
                 }
@@ -62,11 +58,8 @@ struct CompilerCommand: ParsableCommand {
                 throw StringError("Failed to read '\(path)': \(error)")
             }
         }
-        for (path, contentsOfFile) in zip(sourcePaths, contentsOfSourceFiles) {
-            for (lineIndex, line) in contentsOfFile.split(
-                separator: /\R/,
-                omittingEmptySubsequences: false
-            ).enumerated() {
+        for (path, contents) in zip(sourcePaths, contentsOfSourceFiles) {
+            for (lineIndex, line) in contents.split(separator: /\R/, omittingEmptySubsequences: false).enumerated() {
                 if let match = line.firstMatch(of: /\H/) {
                     throw StringError(
                         """
@@ -76,22 +69,16 @@ struct CompilerCommand: ParsableCommand {
                     )
                 }
             }
-            printWarning("'\(path)' contains no declarations or definitions")
         }
-        printWarning("Source files contain no public external declarations or definitions")
     }
     
     func validate() throws {
         for path in sourcePaths {
             guard let `extension` = path.extension else {
-                throw ValidationError(
-                    "Expected '\(path)' to have extension 'source', but it has no extension"
-                )
+                throw ValidationError("Expected '\(path)' to have extension 'source', but it has no extension")
             }
             guard `extension` == "source" else {
-                throw ValidationError(
-                    "Expected '\(path)' to have extension 'source', but it has extension '\(`extension`)'"
-                )
+                throw ValidationError( "Expected '\(path)' to have extension 'source', but it has extension '\(`extension`)'")
             }
         }
     }
@@ -106,6 +93,13 @@ struct CompilerCommand: ParsableCommand {
     }
 }
 
-func printWarning(_ message: String) {
-    _ = try? FileDescriptor.standardError.writeAll("Warning: \(message)\n".utf8)
+struct StringError: Error, CustomStringConvertible {
+    
+    var message: String
+    
+    init(_ message: String) {
+        self.message = message
+    }
+    
+    var description: String { message }
 }
