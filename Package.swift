@@ -17,8 +17,10 @@ let package = Package(
             dependencies: [
                 .product(name: "ArgumentParser", package: "swift-argument-parser"),
                 .product(name: "SystemPackage", package: "swift-system"),
-                .product(name: "LLVM", package: "llvm-swift")
+                .product(name: "LLVM", package: "llvm-swift"),
+                "Lexing"
             ]
-        )
+        ),
+        .target(name: "Lexing")
     ]
 )
