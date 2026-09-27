@@ -1,7 +1,7 @@
 @frozen
-public struct Token {
+public struct Token: Hashable, Sendable {
     
-    public enum Kind {
+    public enum Kind: Hashable, Sendable {
         case externalKeyword
         case functionKeyword
         case publicKeyword
