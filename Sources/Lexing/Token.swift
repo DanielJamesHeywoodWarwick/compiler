@@ -1,1 +1,2 @@
-
+@frozen
+public struct Token {}
