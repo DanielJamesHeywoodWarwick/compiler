@@ -2,5 +2,5 @@
 public struct Identifier: Hashable, Sendable {
     
     @inlinable
-    internal init() {}
+    internal init(_text: String) {}
 }

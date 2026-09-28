@@ -33,8 +33,8 @@ public struct Token: Hashable, Sendable {
     }
     
     @inlinable
-    internal static func _identifier(atLine lineNumber: Int, column columnNumber: Int) -> Token {
-        Token(_kind: .identifier(Identifier()), atLine: lineNumber, column: columnNumber)
+    internal static func _identifier(_ text: String, atLine lineNumber: Int, column columnNumber: Int) -> Token {
+        Token(_kind: .identifier(Identifier(_text: text)), atLine: lineNumber, column: columnNumber)
     }
     
     @inlinable
@@ -58,8 +58,8 @@ public struct Token: Hashable, Sendable {
     }
     
     @inlinable
-    internal static func _integerLiteral(atLine lineNumber: Int, column columnNumber: Int) -> Token {
-        Token(_kind: .integerLiteral(IntegerLiteral()), atLine: lineNumber, column: columnNumber)
+    internal static func _integerLiteral(_ text: String, atLine lineNumber: Int, column columnNumber: Int) -> Token {
+        Token(_kind: .integerLiteral(IntegerLiteral(_text: text)), atLine: lineNumber, column: columnNumber)
     }
     
     @inlinable
