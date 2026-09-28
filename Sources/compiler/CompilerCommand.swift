@@ -5,7 +5,7 @@ import LLVM
 @main
 struct CompilerCommand: ParsableCommand {
     
-    @Argument(help: "The paths to the source files.", transform: { string in FilePath(string) })
+    @Argument(help: "The paths to the source files.", transform: { argument in FilePath(argument) })
     var sourcePaths: [FilePath]
     
     func run() throws {
