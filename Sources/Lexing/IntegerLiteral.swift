@@ -23,7 +23,7 @@ extension IntegerLiteral: CustomStringConvertible {
 extension IntegerLiteral: CustomDebugStringConvertible {
     
     @inlinable
-    public var debugDescription: String { "IntegerLiteral(\(_text.debugDescription))" }
+    public var debugDescription: String { "IntegerLiteral(\"\(_text)\")" }
 }
 
 extension IntegerLiteral: CustomReflectable {
