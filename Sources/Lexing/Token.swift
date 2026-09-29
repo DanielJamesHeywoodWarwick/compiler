@@ -104,31 +104,101 @@ extension Token: CustomStringConvertible {
     public var description: String {
         switch kind {
         case let .identifier(identifier):
-            return "identifier(\"\(identifier)\", atLine: \(lineNumber), column: \(columnNumber))"
+            "identifier(\"\(identifier)\", atLine: \(lineNumber), column: \(columnNumber))"
         case .externalKeyword:
-            return "externalKeyword(atLine: \(lineNumber), column: \(columnNumber))"
+            "externalKeyword(atLine: \(lineNumber), column: \(columnNumber))"
         case .functionKeyword:
-            return "functionKeyword(atLine: \(lineNumber), column: \(columnNumber))"
+            "functionKeyword(atLine: \(lineNumber), column: \(columnNumber))"
         case .publicKeyword:
-            return "publicKeyword(atLine: \(lineNumber), column: \(columnNumber))"
+            "publicKeyword(atLine: \(lineNumber), column: \(columnNumber))"
         case .returnKeyword:
-            return "returnKeyword(atLine: \(lineNumber), column: \(columnNumber))"
+            "returnKeyword(atLine: \(lineNumber), column: \(columnNumber))"
         case let .integerLiteral(integerLiteral):
-            return "integerLiteral(\"\(integerLiteral)\", atLine: \(lineNumber), column: \(columnNumber))"
+            "integerLiteral(\"\(integerLiteral)\", atLine: \(lineNumber), column: \(columnNumber))"
         case .openingParenthesis:
-            return "openingParenthesis(atLine: \(lineNumber), column: \(columnNumber))"
+            "openingParenthesis(atLine: \(lineNumber), column: \(columnNumber))"
         case .closingParenthesis:
-            return "closingParenthesis(atLine: \(lineNumber), column: \(columnNumber))"
+            "closingParenthesis(atLine: \(lineNumber), column: \(columnNumber))"
         case .openingAngleBracket:
-            return "openingAngleBracket(atLine: \(lineNumber), column: \(columnNumber))"
+            "openingAngleBracket(atLine: \(lineNumber), column: \(columnNumber))"
         case .closingAngleBracket:
-            return "closingAngleBracket(atLine: \(lineNumber), column: \(columnNumber))"
+            "closingAngleBracket(atLine: \(lineNumber), column: \(columnNumber))"
         case .openingBrace:
-            return "openingBrace(atLine: \(lineNumber), column: \(columnNumber))"
+            "openingBrace(atLine: \(lineNumber), column: \(columnNumber))"
         case .closingBrace:
-            return "closingBrace(atLine: \(lineNumber), column: \(columnNumber))"
+            "closingBrace(atLine: \(lineNumber), column: \(columnNumber))"
         case .arrow:
-            return "arrow(atLine: \(lineNumber), column: \(columnNumber))"
+            "arrow(atLine: \(lineNumber), column: \(columnNumber))"
+        }
+    }
+}
+
+extension Token.Kind: CustomStringConvertible {
+    
+    @inlinable
+    public var description: String {
+        switch self {
+        case let .identifier(identifier):
+            "\(identifier)"
+        case .externalKeyword:
+            "external"
+        case .functionKeyword:
+            "function"
+        case .publicKeyword:
+            "public"
+        case .returnKeyword:
+            "return"
+        case let .integerLiteral(integerLiteral):
+            "\(integerLiteral)"
+        case .openingParenthesis:
+            "("
+        case .closingParenthesis:
+            ")"
+        case .openingAngleBracket:
+            "<"
+        case .closingAngleBracket:
+            ">"
+        case .openingBrace:
+            "{"
+        case .closingBrace:
+            "}"
+        case .arrow:
+            "->"
+        }
+    }
+}
+
+extension Token.Kind: CustomDebugStringConvertible {
+    
+    @inlinable
+    public var debugDescription: String {
+        switch self {
+        case let .identifier(identifier):
+            "identifier(\"\(identifier)\")"
+        case .externalKeyword:
+            "externalKeyword"
+        case .functionKeyword:
+            "functionKeyword"
+        case .publicKeyword:
+            "publicKeyword"
+        case .returnKeyword:
+            "returnKeyword"
+        case let .integerLiteral(integerLiteral):
+            "integerLiteral(\"\(integerLiteral)\")"
+        case .openingParenthesis:
+            "openingParenthesis"
+        case .closingParenthesis:
+            "closingParenthesis"
+        case .openingAngleBracket:
+            "openingAngleBracket"
+        case .closingAngleBracket:
+            "closingAngleBracket"
+        case .openingBrace:
+            "openingBrace"
+        case .closingBrace:
+            "closingBrace"
+        case .arrow:
+            "arrow"
         }
     }
 }
