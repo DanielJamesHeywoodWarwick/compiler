@@ -10,3 +10,9 @@ public struct Identifier: Hashable, Sendable {
         self._text = _text
     }
 }
+
+extension Identifier: CustomReflectable {
+    
+    @inlinable
+    public var customMirror: Mirror { Mirror(self, children: ["text": _text]) }
+}

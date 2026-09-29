@@ -13,3 +13,9 @@ public struct IntegerLiteral: Hashable, Sendable {
         self._text = _text
     }
 }
+
+extension IntegerLiteral: CustomReflectable {
+    
+    @inlinable
+    public var customMirror: Mirror { Mirror(self, children: ["text": _text]) }
+}
