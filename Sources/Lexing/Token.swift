@@ -97,3 +97,38 @@ public struct Token: Hashable, Sendable {
         Token(_kind: .arrow, atLine: lineNumber, column: columnNumber)
     }
 }
+
+extension Token: CustomStringConvertible {
+    
+    @inlinable
+    public var description: String {
+        switch kind {
+        case let .identifier(identifier):
+            return "identifier(\"\(identifier)\", atLine: \(lineNumber), column: \(columnNumber))"
+        case .externalKeyword:
+            return "externalKeyword(atLine: \(lineNumber), column: \(columnNumber))"
+        case .functionKeyword:
+            return "functionKeyword(atLine: \(lineNumber), column: \(columnNumber))"
+        case .publicKeyword:
+            return "publicKeyword(atLine: \(lineNumber), column: \(columnNumber))"
+        case .returnKeyword:
+            return "returnKeyword(atLine: \(lineNumber), column: \(columnNumber))"
+        case let .integerLiteral(integerLiteral):
+            return "integerLiteral(\"\(integerLiteral)\", atLine: \(lineNumber), column: \(columnNumber))"
+        case .openingParenthesis:
+            return "openingParenthesis(atLine: \(lineNumber), column: \(columnNumber))"
+        case .closingParenthesis:
+            return "closingParenthesis(atLine: \(lineNumber), column: \(columnNumber))"
+        case .openingAngleBracket:
+            return "openingAngleBracket(atLine: \(lineNumber), column: \(columnNumber))"
+        case .closingAngleBracket:
+            return "closingAngleBracket(atLine: \(lineNumber), column: \(columnNumber))"
+        case .openingBrace:
+            return "openingBrace(atLine: \(lineNumber), column: \(columnNumber))"
+        case .closingBrace:
+            return "closingBrace(atLine: \(lineNumber), column: \(columnNumber))"
+        case .arrow:
+            return "arrow(atLine: \(lineNumber), column: \(columnNumber))"
+        }
+    }
+}

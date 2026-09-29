@@ -11,8 +11,20 @@ public struct Identifier: Hashable, Sendable {
     }
 }
 
+extension Identifier: CustomStringConvertible {
+    
+    @inlinable
+    public var description: String { _text }
+}
+
+extension Identifier: CustomDebugStringConvertible {
+    
+    @inlinable
+    public var debugDescription: String { "Identifier(\(_text.debugDescription))" }
+}
+
 extension Identifier: CustomReflectable {
     
     @inlinable
-    public var customMirror: Mirror { Mirror(self, children: ["text": _text]) }
+    public var customMirror: Mirror { Mirror(self, unlabeledChildren: [_text]) }
 }

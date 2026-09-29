@@ -14,8 +14,20 @@ public struct IntegerLiteral: Hashable, Sendable {
     }
 }
 
+extension IntegerLiteral: CustomStringConvertible {
+    
+    @inlinable
+    public var description: String { _text }
+}
+
+extension IntegerLiteral: CustomDebugStringConvertible {
+    
+    @inlinable
+    public var debugDescription: String { "IntegerLiteral(\(_text.debugDescription))" }
+}
+
 extension IntegerLiteral: CustomReflectable {
     
     @inlinable
-    public var customMirror: Mirror { Mirror(self, children: ["text": _text]) }
+    public var customMirror: Mirror { Mirror(self, unlabeledChildren: [_text]) }
 }
