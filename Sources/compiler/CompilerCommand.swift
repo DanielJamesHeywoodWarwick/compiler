@@ -1,12 +1,16 @@
 import ArgumentParser
 import SystemPackage
 import LLVM
+import Lexing
 
 @main
 struct CompilerCommand: ParsableCommand {
     
     @Argument(help: "The paths to the source files.", transform: { argument in FilePath(argument) })
     var sourcePaths: [FilePath]
+    
+    @Flag(help: "Print tokens to standard output.")
+    var printTokens = false
     
     func run() throws {
         precondition(
