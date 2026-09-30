@@ -33,7 +33,7 @@ public struct Token: Hashable, Sendable {
     }
     
     @inlinable
-    internal static func _identifier(_ text: String, atLine lineNumber: Int, column columnNumber: Int) -> Token {
+    internal static func _identifier(_ text: Substring, atLine lineNumber: Int, column columnNumber: Int) -> Token {
         Token(_kind: .identifier(Identifier(_text: text)), atLine: lineNumber, column: columnNumber)
     }
     
@@ -58,7 +58,7 @@ public struct Token: Hashable, Sendable {
     }
     
     @inlinable
-    internal static func _integerLiteral(_ text: String, atLine lineNumber: Int, column columnNumber: Int) -> Token {
+    internal static func _integerLiteral(_ text: Substring, atLine lineNumber: Int, column columnNumber: Int) -> Token {
         Token(_kind: .integerLiteral(IntegerLiteral(_text: text)), atLine: lineNumber, column: columnNumber)
     }
     
@@ -103,8 +103,8 @@ extension Token: CustomStringConvertible {
     @inlinable
     public var description: String {
         switch kind {
-        case let .identifier(text):
-            "identifier(\"\(text)\", atLine: \(lineNumber), column: \(columnNumber))"
+        case let .identifier(identifier):
+            "identifier(\"\(identifier)\", atLine: \(lineNumber), column: \(columnNumber))"
         case .externalKeyword:
             "externalKeyword(atLine: \(lineNumber), column: \(columnNumber))"
         case .functionKeyword:
@@ -113,8 +113,8 @@ extension Token: CustomStringConvertible {
             "publicKeyword(atLine: \(lineNumber), column: \(columnNumber))"
         case .returnKeyword:
             "returnKeyword(atLine: \(lineNumber), column: \(columnNumber))"
-        case let .integerLiteral(text):
-            "integerLiteral(\"\(text)\", atLine: \(lineNumber), column: \(columnNumber))"
+        case let .integerLiteral(integerLiteral):
+            "integerLiteral(\"\(integerLiteral)\", atLine: \(lineNumber), column: \(columnNumber))"
         case .openingParenthesis:
             "openingParenthesis(atLine: \(lineNumber), column: \(columnNumber))"
         case .closingParenthesis:
@@ -138,8 +138,8 @@ extension Token.Kind: CustomStringConvertible {
     @inlinable
     public var description: String {
         switch self {
-        case let .identifier(text):
-            "\(text)"
+        case let .identifier(identifier):
+            "\(identifier)"
         case .externalKeyword:
             "external"
         case .functionKeyword:
@@ -148,8 +148,8 @@ extension Token.Kind: CustomStringConvertible {
             "public"
         case .returnKeyword:
             "return"
-        case let .integerLiteral(text):
-            "\(text)"
+        case let .integerLiteral(integerLiteral):
+            "\(integerLiteral)"
         case .openingParenthesis:
             "("
         case .closingParenthesis:
@@ -173,8 +173,8 @@ extension Token.Kind: CustomDebugStringConvertible {
     @inlinable
     public var debugDescription: String {
         switch self {
-        case let .identifier(text):
-            "identifier(\"\(text)\")"
+        case let .identifier(identifier):
+            "identifier(\"\(identifier)\")"
         case .externalKeyword:
             "externalKeyword"
         case .functionKeyword:
@@ -183,8 +183,8 @@ extension Token.Kind: CustomDebugStringConvertible {
             "publicKeyword"
         case .returnKeyword:
             "returnKeyword"
-        case let .integerLiteral(text):
-            "integerLiteral(\"\(text)\")"
+        case let .integerLiteral(integerLiteral):
+            "integerLiteral(\(integerLiteral))"
         case .openingParenthesis:
             "openingParenthesis"
         case .closingParenthesis:

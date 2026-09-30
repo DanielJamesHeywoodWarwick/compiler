@@ -2,10 +2,10 @@
 public struct Identifier: Hashable, Sendable {
     
     @usableFromInline
-    internal let _text: String
+    internal let _text: Substring
     
     @inlinable
-    internal init(_text: String) {
+    internal init(_text: Substring) {
         precondition(_text.wholeMatch(of: /[a-zA-Z_][a-zA-Z_0-9]*/) != nil, "Expected an identifier, but got '\(_text)'")
         self._text = _text
     }
@@ -14,13 +14,13 @@ public struct Identifier: Hashable, Sendable {
 extension Identifier: CustomStringConvertible {
     
     @inlinable
-    public var description: String { _text }
+    public var description: String { String(_text) }
 }
 
 extension Identifier: CustomDebugStringConvertible {
     
     @inlinable
-    public var debugDescription: String { "Identifier(\"\(_text)\")" }
+    public var debugDescription: String { "Identifier(\(_text.debugDescription))" }
 }
 
 extension Identifier: CustomReflectable {
