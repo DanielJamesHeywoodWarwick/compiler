@@ -1,7 +1,10 @@
 @frozen
 public struct LexingError: Hashable, Error {
     
-    public enum Kind: Hashable, Sendable {}
+    public enum Kind: Hashable, Sendable {
+        case unterminatedMultilineComment
+        case unexpectedMultilineCommentTerminator
+    }
     
     public let kind: Kind
     
@@ -16,5 +19,41 @@ public struct LexingError: Hashable, Error {
         precondition(columnNumber >= 1, "Expected a column number of at least 1, but got \(columnNumber)")
         self.lineNumber = lineNumber
         self.columnNumber = columnNumber
+    }
+    
+    @inlinable
+    internal static func _unterminatedMultilineComment(atLine lineNumber: Int, column columnNumber: Int) -> LexingError {
+        LexingError(_kind: .unterminatedMultilineComment, atLine: lineNumber, column: columnNumber)
+    }
+    
+    @inlinable
+    internal static func _unexpectedMultilineCommentTerminator(atLine lineNumber: Int, column columnNumber: Int) -> LexingError {
+        LexingError(_kind: .unexpectedMultilineCommentTerminator, atLine: lineNumber, column: columnNumber)
+    }
+}
+
+extension LexingError: CustomStringConvertible {
+    
+    @inlinable
+    public var description: String {
+        switch kind {
+        case .unterminatedMultilineComment:
+            "Unterminated multiline comment at line \(lineNumber), column \(columnNumber)"
+        case .unexpectedMultilineCommentTerminator:
+            "Unexpected multiline comment terminator at line \(lineNumber), column \(columnNumber)"
+        }
+    }
+}
+
+extension LexingError: CustomDebugStringConvertible {
+    
+    @inlinable
+    public var debugDescription: String {
+        switch kind {
+        case .unterminatedMultilineComment:
+            "unterminatedMultilineComment(atLine: \(lineNumber), column: \(columnNumber))"
+        case .unexpectedMultilineCommentTerminator:
+            "unexpectedMultilineCommentTerminator(atLine: \(lineNumber), column: \(columnNumber))"
+        }
     }
 }
