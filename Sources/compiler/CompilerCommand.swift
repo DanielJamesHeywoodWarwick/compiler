@@ -62,16 +62,11 @@ struct CompilerCommand: ParsableCommand {
                 throw StringError("Failed to read '\(path)': \(error)")
             }
         }
-        for (path, contents) in zip(sourcePaths, contentsOfSourceFiles) {
-            for (lineIndex, line) in contents.split(separator: /\R/, omittingEmptySubsequences: false).enumerated() {
-                if let match = line.firstMatch(of: /\H/) {
-                    throw StringError(
-                        """
-                        Failed to parse '\(match)' at line \(lineIndex + 1), column \
-                        \(line.distance(from: line.startIndex, to: match.startIndex) + 1) of '\(path)'
-                        """
-                    )
-                }
+        let tokensForSourceFiles = try zip(sourcePaths, contentsOfSourceFiles).map { path, contents in
+            do {
+                return try tokens(for: contents)
+            } catch {
+                throw StringError("\(error) of '\(path)'")
             }
         }
     }
