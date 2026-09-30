@@ -103,8 +103,8 @@ extension Token: CustomStringConvertible {
     @inlinable
     public var description: String {
         switch kind {
-        case let .identifier(identifier):
-            "identifier(\"\(identifier)\", atLine: \(lineNumber), column: \(columnNumber))"
+        case let .identifier(text):
+            "identifier(\"\(text)\", atLine: \(lineNumber), column: \(columnNumber))"
         case .externalKeyword:
             "externalKeyword(atLine: \(lineNumber), column: \(columnNumber))"
         case .functionKeyword:
@@ -113,8 +113,8 @@ extension Token: CustomStringConvertible {
             "publicKeyword(atLine: \(lineNumber), column: \(columnNumber))"
         case .returnKeyword:
             "returnKeyword(atLine: \(lineNumber), column: \(columnNumber))"
-        case let .integerLiteral(integerLiteral):
-            "integerLiteral(\"\(integerLiteral)\", atLine: \(lineNumber), column: \(columnNumber))"
+        case let .integerLiteral(text):
+            "integerLiteral(\"\(text)\", atLine: \(lineNumber), column: \(columnNumber))"
         case .openingParenthesis:
             "openingParenthesis(atLine: \(lineNumber), column: \(columnNumber))"
         case .closingParenthesis:
@@ -138,8 +138,8 @@ extension Token.Kind: CustomStringConvertible {
     @inlinable
     public var description: String {
         switch self {
-        case let .identifier(identifier):
-            "\(identifier)"
+        case let .identifier(text):
+            "\(text)"
         case .externalKeyword:
             "external"
         case .functionKeyword:
@@ -148,8 +148,8 @@ extension Token.Kind: CustomStringConvertible {
             "public"
         case .returnKeyword:
             "return"
-        case let .integerLiteral(integerLiteral):
-            "\(integerLiteral)"
+        case let .integerLiteral(text):
+            "\(text)"
         case .openingParenthesis:
             "("
         case .closingParenthesis:
@@ -173,8 +173,8 @@ extension Token.Kind: CustomDebugStringConvertible {
     @inlinable
     public var debugDescription: String {
         switch self {
-        case let .identifier(identifier):
-            "identifier(\"\(identifier)\")"
+        case let .identifier(text):
+            "identifier(\"\(text)\")"
         case .externalKeyword:
             "externalKeyword"
         case .functionKeyword:
@@ -183,8 +183,8 @@ extension Token.Kind: CustomDebugStringConvertible {
             "publicKeyword"
         case .returnKeyword:
             "returnKeyword"
-        case let .integerLiteral(integerLiteral):
-            "integerLiteral(\"\(integerLiteral)\")"
+        case let .integerLiteral(text):
+            "integerLiteral(\"\(text)\")"
         case .openingParenthesis:
             "openingParenthesis"
         case .closingParenthesis:
