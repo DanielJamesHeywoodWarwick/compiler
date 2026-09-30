@@ -15,7 +15,7 @@ struct CompilerCommand: ParsableCommand {
     func run() throws {
         precondition(
             sourcePaths.allSatisfy { path in path.extension == "source" },
-            "Expected the validated source files to have extension 'source'"
+            "Expected the validated source files to have extension \"source\""
         )
         let contentsOfSourceFiles = try sourcePaths.map { path in
             do {
