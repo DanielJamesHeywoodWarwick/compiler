@@ -40,7 +40,7 @@ extension LexingError: CustomStringConvertible {
         case .unterminatedMultilineComment:
             "Unterminated multiline comment at line \(lineNumber), column \(columnNumber)"
         case .unexpectedMultilineCommentTerminator:
-            "Unexpected multiline comment terminator at line \(lineNumber), column \(columnNumber)"
+            "Unexpected multiline comment terminator '*/' at line \(lineNumber), column \(columnNumber)"
         }
     }
 }
