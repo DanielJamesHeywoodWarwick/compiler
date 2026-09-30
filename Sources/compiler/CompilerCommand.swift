@@ -69,6 +69,15 @@ struct CompilerCommand: ParsableCommand {
                 throw StringError("\(error) of '\(path)'")
             }
         }
+        if printTokens {
+            for (path, tokens) in zip(sourcePaths, tokensForSourceFiles) {
+                print("Tokens for '\(path)':")
+                for token in tokens {
+                    print("  \(token)")
+                }
+                print()
+            }
+        }
     }
     
     func validate() throws {
