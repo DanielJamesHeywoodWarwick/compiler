@@ -6,7 +6,10 @@ public struct Identifier: Hashable, Sendable {
     
     @inlinable
     internal init(_text: Substring) {
-        precondition(_text.wholeMatch(of: /[a-zA-Z_][a-zA-Z_0-9]*/) != nil, "Expected an identifier, but got '\(_text)'")
+        precondition(
+            _text.wholeMatch(of: /[a-zA-Z_][a-zA-Z_0-9]*/) != nil,
+            "Expected an identifier, but got \(_text.debugDescription)"
+        )
         self._text = _text
     }
 }

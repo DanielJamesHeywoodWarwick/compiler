@@ -8,7 +8,7 @@ public struct IntegerLiteral: Hashable, Sendable {
     internal init(_text: Substring) {
         precondition(
             _text.wholeMatch(of: /0b[01][01_]*|0o[0-7][0-7_]*|[0-9][0-9_]*|0x[0-9a-fA-F][0-9a-fA-F_]*/) != nil,
-            "Expected an integer literal, but got '\(_text)'"
+            "Expected an integer literal, but got \(_text.debugDescription)"
         )
         self._text = _text
     }
