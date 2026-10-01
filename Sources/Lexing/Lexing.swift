@@ -11,12 +11,8 @@ public func tokens(for text: String) throws(LexingError) -> [Token] {
                 let columnNumber = line.distance(from: line.startIndex, to: _1.startIndex) + 1
                 switch character {
                 case "a"..."z", "A"..."Z", "_":
-                    let _2 = _1.prefix(
-                        while: { character in
-                            "a"..."z" ~= character || "A"..."Z" ~= character || character == "_" || "0"..."9" ~= character
-                        }
-                    )
-                    token = switch _2 {
+                    let text = _1.prefixMatch(of: /[a-zA-Z_][a-zA-Z_0-9]*/).unsafelyUnwrapped.output
+                    token = switch text {
                     case "external":
                         ._externalKeyword(atLine: lineNumber, column: columnNumber)
                     case "function":
@@ -26,7 +22,7 @@ public func tokens(for text: String) throws(LexingError) -> [Token] {
                     case "return":
                         ._returnKeyword(atLine: lineNumber, column: columnNumber)
                     default:
-                        ._identifier(_2, atLine: lineNumber, column: columnNumber)
+                        ._identifier(text, atLine: lineNumber, column: columnNumber)
                     }
                 case "0"..."9":
                     token = ._integerLiteral(
@@ -45,7 +41,7 @@ public func tokens(for text: String) throws(LexingError) -> [Token] {
                     token = ._openingBrace(atLine: lineNumber, column: columnNumber)
                 case "}":
                     token = ._closingBrace(atLine: lineNumber, column: columnNumber)
-                case "-" where _1.dropFirst().first == ">":
+                case "-" where _1.hasPrefix("->"):
                     token = ._arrow(atLine: lineNumber, column: columnNumber)
                 default:
                     throw ._unexpectedCharacter(character, atLine: lineNumber, column: columnNumber)
