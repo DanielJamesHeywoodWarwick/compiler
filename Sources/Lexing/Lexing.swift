@@ -11,8 +11,8 @@ public func tokens(for text: String) throws(LexingError) -> [Token] {
                 let columnNumber = line.distance(from: line.startIndex, to: _1.startIndex) + 1
                 switch character {
                 case "a"..."z", "A"..."Z", "_":
-                    let text = _1.prefixMatch(of: /[a-zA-Z_][a-zA-Z_0-9]*/).unsafelyUnwrapped.output
-                    token = switch text {
+                    let match = _1.prefixMatch(of: /[a-zA-Z_][a-zA-Z_0-9]*/).unsafelyUnwrapped
+                    token = switch match.output {
                     case "external":
                         ._externalKeyword(atLine: lineNumber, column: columnNumber)
                     case "function":
@@ -22,13 +22,13 @@ public func tokens(for text: String) throws(LexingError) -> [Token] {
                     case "return":
                         ._returnKeyword(atLine: lineNumber, column: columnNumber)
                     default:
-                        ._identifier(text, atLine: lineNumber, column: columnNumber)
+                        ._identifier(match.output, atLine: lineNumber, column: columnNumber)
                     }
                 case "0"..."9":
-                    token = ._integerLiteral(
-                        _1.prefix(while: { character in "0"..."9" ~= character || character == "_" }),
-                        atLine: lineNumber, column: columnNumber
-                    )
+                    let match = _1.prefixMatch(
+                        of: /0b[01][01_]*|0o[0-7][0-7_]*|0x[0-9a-fA-F][0-9a-fA-F_]*|[0-9][0-9_]*/
+                    ).unsafelyUnwrapped
+                    token = ._integerLiteral(match.output, atLine: lineNumber, column: columnNumber)
                 case "(":
                     token = ._openingParenthesis(atLine: lineNumber, column: columnNumber)
                 case ")":
