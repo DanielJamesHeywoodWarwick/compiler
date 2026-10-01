@@ -73,7 +73,35 @@ struct CompilerCommand: ParsableCommand {
             for (path, tokens) in zip(sourcePaths, tokensForSourceFiles) {
                 print("Tokens for '\(path)':")
                 for token in tokens {
-                    print("  \(token)")
+                    let description = switch token.kind {
+                    case let .identifier(identifier):
+                        "Identifier '\(identifier)'"
+                    case .externalKeyword:
+                        "Keyword 'external'"
+                    case .functionKeyword:
+                        "Keyword 'function'"
+                    case .publicKeyword:
+                        "Keyword 'public'"
+                    case .returnKeyword:
+                        "Keyword 'return'"
+                    case let .integerLiteral(integerLiteral):
+                        "Integer literal '\(integerLiteral)'"
+                    case .openingParenthesis:
+                        "Opening parenthesis '('"
+                    case .closingParenthesis:
+                        ("Closing parenthesis ')'")
+                    case .openingAngleBracket:
+                        ("Opening angle bracket '<'")
+                    case .closingAngleBracket:
+                        ("Closing angle bracket '>'")
+                    case .openingBrace:
+                        ("Opening brace '{'")
+                    case .closingBrace:
+                        ("Closing brace '}'")
+                    case .arrow:
+                        "Arrow '->'"
+                    }
+                    print("  \(description) at line \(token.lineNumber), column \(token.columnNumber)")
                 }
                 print()
             }
