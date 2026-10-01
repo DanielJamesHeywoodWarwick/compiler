@@ -3,12 +3,12 @@ public func tokens(for text: String) throws(LexingError) -> [Token] {
     var tokens = [] as [Token]
     for (lineNumber, line) in zip(1..., text.split(omittingEmptySubsequences: false, whereSeparator: \.isNewline)) {
         var _1 = line.prefix(upTo: line.firstRange(of: "//")?.lowerBound ?? line.endIndex)
-        while let _2 = _1.first {
-            if _2.isWhitespace {
+        while let character = _1.first {
+            if character.isWhitespace {
                 _1 = _1.trimmingPrefix(while: \.isWhitespace)
             } else {
                 let columnNumber = line.distance(from: line.startIndex, to: _1.startIndex) + 1
-                let token = switch _2 {
+                let token = switch character {
                 case "a"..."z", "A"..."Z", "_":
                     ._identifier(
                         _1.prefix(
@@ -38,7 +38,7 @@ public func tokens(for text: String) throws(LexingError) -> [Token] {
                 case "-" where _1.dropFirst().first == ">":
                     ._arrow(atLine: lineNumber, column: columnNumber)
                 default:
-                    throw ._unexpectedCharacter(_2, atLine: lineNumber, column: columnNumber)
+                    throw ._unexpectedCharacter(character, atLine: lineNumber, column: columnNumber)
                 } as Token
                 _1 = _1.trimmingPrefix("\(token.kind)")
                 tokens.append(token)
