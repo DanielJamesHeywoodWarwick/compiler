@@ -11,11 +11,18 @@ public func tokens(for text: String) throws(LexingError) -> [Token] {
                 let token = switch _2 {
                 case "a"..."z", "A"..."Z", "_":
                     ._identifier(
-                        _1.prefix(while: { character in "a"..."z" ~= character || "A"..."Z" ~= character || character == "_" }),
+                        _1.prefix(
+                            while: { character in
+                                "a"..."z" ~= character || "A"..."Z" ~= character || character == "_" || "0"..."9" ~= character
+                            }
+                        ),
                         atLine: lineNumber, column: columnNumber
                     )
                 case "0"..."9":
-                    ._integerLiteral(Substring(_2.description), atLine: lineNumber, column: columnNumber)
+                    ._integerLiteral(
+                        _1.prefix(while: { character in "0"..."9" ~= character || character == "_" }),
+                        atLine: lineNumber, column: columnNumber
+                    )
                 case "(":
                     ._openingParenthesis(atLine: lineNumber, column: columnNumber)
                 case ")":
