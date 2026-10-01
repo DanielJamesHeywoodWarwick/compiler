@@ -1,77 +1,41 @@
 @inlinable
 public func tokens(for text: String) throws(LexingError) -> [Token] {
     var tokens = [] as [Token]
-    var unlexedText = Substring(text)
-    var position = (lineNumber: 1, columnNumber: 1)
-    while !unlexedText.isEmpty {
-        if let match = unlexedText.prefixMatch(of: /\R+/) {
-            unlexedText = unlexedText.suffix(from: match.endIndex)
-            position.lineNumber += match.count
-            position.columnNumber = 1
-        } else if let match = unlexedText.prefixMatch(of: /\h+/) {
-            unlexedText = unlexedText.suffix(from: match.endIndex)
-            position.columnNumber += match.count
-        } else if unlexedText.hasPrefix("//") {
-            guard let match = unlexedText.firstMatch(of: /\R+/) else {
-                throw ._unterminatedMultilineComment(atLine: position.lineNumber, column: position.columnNumber)
-            }
-            unlexedText = unlexedText.suffix(from: match.endIndex)
-            position.lineNumber += match.count
-            position.columnNumber = 1
-        } else if unlexedText.hasPrefix("/*") {
-        } else if unlexedText.hasPrefix("*/") {
-            throw ._unexpectedMultilineCommentTerminator(atLine: position.lineNumber, column: position.columnNumber)
-        } else {
-            let token: Token
-            if let match = unlexedText.prefixMatch(of: /[a-zA-Z_][a-zA-Z_0-9]*/) {
-                token = switch match.output {
-                case "external":
-                    ._externalKeyword(atLine: position.lineNumber, column: position.columnNumber)
-                case "function":
-                    ._functionKeyword(atLine: position.lineNumber, column: position.columnNumber)
-                case "public":
-                    ._publicKeyword(atLine: position.lineNumber, column: position.columnNumber)
-                case "return":
-                    ._returnKeyword(atLine: position.lineNumber, column: position.columnNumber)
-                default:
-                    ._identifier(match.output, atLine: position.lineNumber, column: position.columnNumber)
-                }
-                unlexedText = unlexedText.suffix(from: match.endIndex)
-                position.columnNumber += match.count
-            } else if let match = unlexedText.prefixMatch(
-                of: /0b[01][01_]*|0o[0-7][0-7_]*|0x[0-9a-fA-F][0-9a-fA-F_]*|[0-9][0-9_]*/
-            ) {
-                token = ._integerLiteral(match.output, atLine: position.lineNumber, column: position.columnNumber)
-                unlexedText = unlexedText.suffix(from: match.endIndex)
-                position.columnNumber += match.count
-            } else if unlexedText.hasPrefix("->") {
-                token = ._arrow(atLine: position.lineNumber, column: position.columnNumber)
-                unlexedText = unlexedText.dropFirst(2)
-                position.columnNumber += 2
+    for (lineNumber, line) in zip(1..., text.split(omittingEmptySubsequences: false, whereSeparator: \.isNewline)) {
+        var _1 = line.prefix(upTo: line.firstRange(of: "//")?.lowerBound ?? line.endIndex)
+        while let _2 = _1.first {
+            if _2.isWhitespace {
+                _1 = _1.trimmingPrefix(while: \.isWhitespace)
             } else {
-                token = switch unlexedText.first.unsafelyUnwrapped {
-                case "(":
-                    ._openingParenthesis(atLine: position.lineNumber, column: position.columnNumber)
-                case ")":
-                    ._closingParenthesis(atLine: position.lineNumber, column: position.columnNumber)
-                case "<":
-                    ._openingAngleBracket(atLine: position.lineNumber, column: position.columnNumber)
-                case ">":
-                    ._closingAngleBracket(atLine: position.lineNumber, column: position.columnNumber)
-                case "{":
-                    ._openingBrace(atLine: position.lineNumber, column: position.columnNumber)
-                case "}":
-                    ._closingBrace(atLine: position.lineNumber, column: position.columnNumber)
-                default:
-                    throw ._unexpectedCharacter(
-                        unlexedText.first.unsafelyUnwrapped,
-                        atLine: position.lineNumber, column: position.columnNumber
+                let columnNumber = line.distance(from: line.startIndex, to: _1.startIndex) + 1
+                let token = switch _2 {
+                case "a"..."z", "A"..."Z", "_":
+                    ._identifier(
+                        _1.prefix(while: { character in "a"..."z" ~= character || "A"..."Z" ~= character || character == "_" }),
+                        atLine: lineNumber, column: columnNumber
                     )
-                }
-                unlexedText = unlexedText.dropFirst()
-                position.columnNumber += 1
+                case "0"..."9":
+                    ._integerLiteral(Substring(_2.description), atLine: lineNumber, column: columnNumber)
+                case "(":
+                    ._openingParenthesis(atLine: lineNumber, column: columnNumber)
+                case ")":
+                    ._closingParenthesis(atLine: lineNumber, column: columnNumber)
+                case "<":
+                    ._openingAngleBracket(atLine: lineNumber, column: columnNumber)
+                case ">":
+                    ._closingAngleBracket(atLine: lineNumber, column: columnNumber)
+                case "{":
+                    ._openingBrace(atLine: lineNumber, column: columnNumber)
+                case "}":
+                    ._closingBrace(atLine: lineNumber, column: columnNumber)
+                case "-" where _1.dropFirst().first == ">":
+                    ._arrow(atLine: lineNumber, column: columnNumber)
+                default:
+                    throw ._unexpectedCharacter(_2, atLine: lineNumber, column: columnNumber)
+                } as Token
+                _1 = _1.trimmingPrefix("\(token.kind)")
+                tokens.append(token)
             }
-            tokens.append(token)
         }
     }
     return tokens
