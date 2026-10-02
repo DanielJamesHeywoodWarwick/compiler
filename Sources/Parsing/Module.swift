@@ -1,0 +1,2 @@
+@frozen
+public struct Module {}
