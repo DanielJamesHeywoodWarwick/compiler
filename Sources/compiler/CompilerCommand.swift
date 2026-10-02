@@ -2,6 +2,7 @@ import ArgumentParser
 import SystemPackage
 import LLVM
 import Lexing
+import Parsing
 
 @main
 struct CompilerCommand: ParsableCommand {

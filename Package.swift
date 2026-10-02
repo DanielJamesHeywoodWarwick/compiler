@@ -18,7 +18,8 @@ let package = Package(
                 .product(name: "ArgumentParser", package: "swift-argument-parser"),
                 .product(name: "SystemPackage", package: "swift-system"),
                 .product(name: "LLVM", package: "llvm-swift"),
-                "Lexing"
+                "Lexing",
+                "Parsing"
             ]
         ),
         .target(name: "Lexing"),
