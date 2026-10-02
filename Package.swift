@@ -21,6 +21,7 @@ let package = Package(
                 "Lexing"
             ]
         ),
-        .target(name: "Lexing")
+        .target(name: "Lexing"),
+        .target(name: "Parsing")
     ]
 )
