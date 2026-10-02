@@ -1,3 +1,0 @@
-public external function main() -> Integer<32> {
-    return 0 // success
-}
