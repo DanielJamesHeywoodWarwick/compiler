@@ -13,6 +13,9 @@ struct CompilerCommand: ParsableCommand {
     @Flag(help: "Print tokens to standard output.")
     var printTokens = false
     
+    @Flag(help: "Print modules to standard output after parsing.")
+    var printParsedModules = false
+    
     func run() throws {
         precondition(
             sourcePaths.allSatisfy { path in path.extension == "source" },
