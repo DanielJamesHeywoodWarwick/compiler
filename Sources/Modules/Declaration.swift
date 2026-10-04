@@ -4,6 +4,7 @@ import Tokens
 public struct Declaration: Hashable, Sendable {
     
     public enum Kind: Hashable, Sendable {
+        case function
         case structure(declarations: [Declaration])
     }
     
@@ -13,6 +14,9 @@ public struct Declaration: Hashable, Sendable {
     internal init(_kind: Kind) {
         kind = _kind
     }
+    
+    @inlinable
+    public static func function() -> Declaration { Declaration(_kind: .function) }
     
     @inlinable
     public static func structure(@ArrayBuilder<Declaration> makeDeclarations: () -> [Declaration]) -> Declaration {
