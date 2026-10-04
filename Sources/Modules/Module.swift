@@ -1,5 +1,5 @@
 @frozen
-public struct Module {
+public struct Module: Hashable, Sendable {
     
     public let declarations: [Declaration]
     
