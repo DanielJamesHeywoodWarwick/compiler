@@ -8,6 +8,7 @@ public struct Token: Hashable, Sendable {
         case privateKeyword
         case publicKeyword
         case returnKeyword
+        case structureKeyword
         case integerLiteral(IntegerLiteral)
         case openingParenthesis
         case closingParenthesis
@@ -61,6 +62,11 @@ public struct Token: Hashable, Sendable {
     @inlinable
     public static func returnKeyword(atLine lineNumber: Int, column columnNumber: Int) -> Token {
         Token(_kind: .returnKeyword, atLine: lineNumber, column: columnNumber)
+    }
+    
+    @inlinable
+    public static func structureKeyword(atLine lineNumber: Int, column columnNumber: Int) -> Token {
+        Token(_kind: .structureKeyword, atLine: lineNumber, column: columnNumber)
     }
     
     @inlinable
@@ -121,6 +127,8 @@ extension Token: CustomStringConvertible {
             "publicKeyword(atLine: \(lineNumber), column: \(columnNumber))"
         case .returnKeyword:
             "returnKeyword(atLine: \(lineNumber), column: \(columnNumber))"
+        case .structureKeyword:
+            "structureKeyword(atLine: \(lineNumber), column: \(columnNumber))"
         case let .integerLiteral(integerLiteral):
             "integerLiteral(\"\(integerLiteral)\", atLine: \(lineNumber), column: \(columnNumber))"
         case .openingParenthesis:
@@ -158,6 +166,8 @@ extension Token.Kind: CustomStringConvertible {
             "public"
         case .returnKeyword:
             "return"
+        case .structureKeyword:
+            "structure"
         case let .integerLiteral(integerLiteral):
             "\(integerLiteral)"
         case .openingParenthesis:
@@ -195,6 +205,8 @@ extension Token.Kind: CustomDebugStringConvertible {
             "publicKeyword"
         case .returnKeyword:
             "returnKeyword"
+        case .structureKeyword:
+            "structureKeyword"
         case let .integerLiteral(integerLiteral):
             "integerLiteral(\(integerLiteral))"
         case .openingParenthesis:

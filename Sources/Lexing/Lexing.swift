@@ -23,6 +23,8 @@ public func tokens(for text: String) throws(LexingError) -> [Token] {
                         .publicKeyword(atLine: lineNumber, column: columnNumber)
                     case "return":
                         .returnKeyword(atLine: lineNumber, column: columnNumber)
+                    case "structure":
+                        .structureKeyword(atLine: lineNumber, column: columnNumber)
                     default:
                         .identifier(match.output, atLine: lineNumber, column: columnNumber)
                     }
