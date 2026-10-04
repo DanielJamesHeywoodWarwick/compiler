@@ -2,22 +2,27 @@
 public struct IntegerLiteral: Hashable, Sendable {
     
     @usableFromInline
-    internal let _text: Substring
+    internal let _text: String
     
     @inlinable
-    public init(_ text: Substring) {
+    public init(_ text: String) {
         precondition(
             text.wholeMatch(of: /0b[01][01_]*|0o[0-7][0-7_]*|0x[0-9a-fA-F][0-9a-fA-F_]*|[0-9][0-9_]*/) != nil,
             "Expected an integer literal, but got \(text.debugDescription)"
         )
         _text = text
     }
+    
+    @inlinable
+    public init(_ text: Substring) {
+        self.init(String(text))
+    }
 }
 
 extension IntegerLiteral: CustomStringConvertible {
     
     @inlinable
-    public var description: String { String(_text) }
+    public var description: String { _text }
 }
 
 extension IntegerLiteral: CustomDebugStringConvertible {
