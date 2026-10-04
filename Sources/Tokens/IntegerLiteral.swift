@@ -5,12 +5,12 @@ public struct IntegerLiteral: Hashable, Sendable {
     internal let _text: Substring
     
     @inlinable
-    internal init(_text: Substring) {
+    public init(_ text: Substring) {
         precondition(
-            _text.wholeMatch(of: /0b[01][01_]*|0o[0-7][0-7_]*|0x[0-9a-fA-F][0-9a-fA-F_]*|[0-9][0-9_]*/) != nil,
-            "Expected an integer literal, but got \(_text.debugDescription)"
+            text.wholeMatch(of: /0b[01][01_]*|0o[0-7][0-7_]*|0x[0-9a-fA-F][0-9a-fA-F_]*|[0-9][0-9_]*/) != nil,
+            "Expected an integer literal, but got \(text.debugDescription)"
         )
-        self._text = _text
+        _text = text
     }
 }
 

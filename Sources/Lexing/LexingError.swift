@@ -21,7 +21,7 @@ public struct LexingError: Hashable, Error {
     }
     
     @inlinable
-    internal static func _unexpectedCharacter(
+    public static func unexpectedCharacter(
         _ character: Character,
         atLine lineNumber: Int, column columnNumber: Int
     ) -> LexingError {

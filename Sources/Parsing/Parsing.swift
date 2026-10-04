@@ -1,4 +1,4 @@
-import Lexing
+import Tokens
 import Modules
 
 extension Module {

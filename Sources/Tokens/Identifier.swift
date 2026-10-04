@@ -5,12 +5,12 @@ public struct Identifier: Hashable, Sendable {
     internal let _text: Substring
     
     @inlinable
-    internal init(_text: Substring) {
+    public init(_ text: Substring) {
         precondition(
-            _text.wholeMatch(of: /[a-zA-Z_][a-zA-Z_0-9]*/) != nil,
-            "Expected an identifier, but got \(_text.debugDescription)"
+            text.wholeMatch(of: /[a-zA-Z_][a-zA-Z_0-9]*/) != nil,
+            "Expected an identifier, but got \(text.debugDescription)"
         )
-        self._text = _text
+        _text = text
     }
 }
 
