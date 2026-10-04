@@ -5,6 +5,7 @@ public struct Token: Hashable, Sendable {
         case identifier(Identifier)
         case externalKeyword
         case functionKeyword
+        case privateKeyword
         case publicKeyword
         case returnKeyword
         case integerLiteral(IntegerLiteral)
@@ -45,6 +46,11 @@ public struct Token: Hashable, Sendable {
     @inlinable
     internal static func _functionKeyword(atLine lineNumber: Int, column columnNumber: Int) -> Token {
         Token(_kind: .functionKeyword, atLine: lineNumber, column: columnNumber)
+    }
+    
+    @inlinable
+    internal static func _privateKeyword(atLine lineNumber: Int, column columnNumber: Int) -> Token {
+        Token(_kind: .privateKeyword, atLine: lineNumber, column: columnNumber)
     }
     
     @inlinable
@@ -109,6 +115,8 @@ extension Token: CustomStringConvertible {
             "externalKeyword(atLine: \(lineNumber), column: \(columnNumber))"
         case .functionKeyword:
             "functionKeyword(atLine: \(lineNumber), column: \(columnNumber))"
+        case .privateKeyword:
+            "privateKeyword(atLine: \(lineNumber), column: \(columnNumber))"
         case .publicKeyword:
             "publicKeyword(atLine: \(lineNumber), column: \(columnNumber))"
         case .returnKeyword:
@@ -144,6 +152,8 @@ extension Token.Kind: CustomStringConvertible {
             "external"
         case .functionKeyword:
             "function"
+        case .privateKeyword:
+            "private"
         case .publicKeyword:
             "public"
         case .returnKeyword:
@@ -179,6 +189,8 @@ extension Token.Kind: CustomDebugStringConvertible {
             "externalKeyword"
         case .functionKeyword:
             "functionKeyword"
+        case .privateKeyword:
+            "privateKeyword"
         case .publicKeyword:
             "publicKeyword"
         case .returnKeyword:

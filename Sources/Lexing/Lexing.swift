@@ -15,6 +15,8 @@ public func tokens(for text: String) throws(LexingError) -> [Token] {
                         ._externalKeyword(atLine: lineNumber, column: columnNumber)
                     case "function":
                         ._functionKeyword(atLine: lineNumber, column: columnNumber)
+                    case "private":
+                        ._privateKeyword(atLine: lineNumber, column: columnNumber)
                     case "public":
                         ._publicKeyword(atLine: lineNumber, column: columnNumber)
                     case "return":
