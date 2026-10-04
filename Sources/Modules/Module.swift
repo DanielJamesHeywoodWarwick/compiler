@@ -2,5 +2,5 @@
 public struct Module {
     
     @inlinable
-    public init(@DeclarationsBuilder makeDeclarations: () -> [Declaration]) {}
+    public init(@ArrayBuilder<Declaration> makeDeclarations: () -> [Declaration]) {}
 }
