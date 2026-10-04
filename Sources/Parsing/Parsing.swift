@@ -4,7 +4,7 @@ import Modules
 extension Module {
     
     @inlinable
-    public init(_ tokens: Token) {
+    public init(_ tokens: [Token]) {
         self.init()
     }
 }
