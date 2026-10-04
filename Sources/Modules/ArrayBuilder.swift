@@ -1,5 +1,6 @@
 @frozen
-@resultBuilder public struct ArrayBuilder<T> {
+@resultBuilder
+public enum ArrayBuilder<T> {
     
     @inlinable
     public static func buildBlock(_ components: [T]...) -> [T] { Array(components.joined()) }
