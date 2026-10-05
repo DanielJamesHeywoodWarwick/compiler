@@ -4,7 +4,7 @@ import Tokens
 public struct Declaration: Hashable, Sendable {
     
     public enum Kind: Hashable, Sendable {
-        case function
+        case function(body: [Statement])
         case structure(members: [Declaration])
         case variable
     }
@@ -23,8 +23,12 @@ public struct Declaration: Hashable, Sendable {
     }
     
     @inlinable
-    public static func function(_ identifierText: String, accessControl: AccessControl) -> Declaration {
-        Declaration(_kind: .function, identifierText: identifierText, accessControl: accessControl)
+    public static func function(
+        _ identifierText: String,
+        accessControl: AccessControl,
+        @ArrayBuilder<Statement> makeBody: () -> [Statement]
+    ) -> Declaration {
+        Declaration(_kind: .function(body: makeBody()), identifierText: identifierText, accessControl: accessControl)
     }
     
     @inlinable
@@ -47,8 +51,8 @@ extension Declaration: CustomStringConvertible {
     @inlinable
     public var description: String {
         switch kind {
-        case .function:
-            "function(\"\(identifier)\", accessControl: \(accessControl))"
+        case let .function(body):
+            "function(\"\(identifier)\", accessControl: \(accessControl), body: \(body)"
         case let .structure(members):
             "structure(\"\(identifier)\", accessControl: \(accessControl), members: \(members))"
         case .variable:
