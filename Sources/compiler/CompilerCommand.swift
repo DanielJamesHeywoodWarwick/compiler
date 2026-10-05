@@ -91,6 +91,8 @@ struct CompilerCommand: ParsableCommand {
                         "Keyword 'public'"
                     case .returnKeyword:
                         "Keyword 'return'"
+                    case .structureKeyword:
+                        "Keyword 'structure'"
                     case let .integerLiteral(integerLiteral):
                         "Integer literal '\(integerLiteral)'"
                     case .openingParenthesis:
