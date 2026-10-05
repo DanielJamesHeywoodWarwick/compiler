@@ -6,6 +6,7 @@ public struct Declaration: Hashable, Sendable {
     public enum Kind: Hashable, Sendable {
         case function
         case structure(declarations: [Declaration])
+        case variable
     }
     
     public let kind: Kind
