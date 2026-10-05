@@ -10,25 +10,29 @@ public struct Declaration: Hashable, Sendable {
     
     public let kind: Kind
     
+    public let identifier: Identifier
+    
     public let accessControl: AccessControl
     
     @inlinable
-    internal init(_kind: Kind, accessControl: AccessControl) {
+    internal init(_kind: Kind, identifierText: String, accessControl: AccessControl) {
         kind = _kind
+        self.identifier = Identifier(identifierText)
         self.accessControl = accessControl
     }
     
     @inlinable
-    public static func function(accessControl: AccessControl) -> Declaration {
-        Declaration(_kind: .function, accessControl: accessControl)
+    public static func function(_ identifierText: String, accessControl: AccessControl) -> Declaration {
+        Declaration(_kind: .function, identifierText: identifierText, accessControl: accessControl)
     }
     
     @inlinable
     public static func structure(
+        _ identifierText: String,
         accessControl: AccessControl,
         @ArrayBuilder<Declaration> makeMembers: () -> [Declaration]
     ) -> Declaration {
-        Declaration(_kind: .structure(members: makeMembers()), accessControl: accessControl)
+        Declaration(_kind: .structure(members: makeMembers()), identifierText: identifierText, accessControl: accessControl)
     }
 }
 
@@ -38,9 +42,9 @@ extension Declaration: CustomStringConvertible {
     public var description: String {
         switch kind {
         case .function:
-            "function(accessControl: \(accessControl))"
+            "function(\"\(identifier)\", accessControl: \(accessControl))"
         case let .structure(members):
-            "structure(accessControl: \(accessControl), members: \(members))"
+            "structure(\"\(identifier)\", accessControl: \(accessControl), members: \(members))"
         }
     }
 }
