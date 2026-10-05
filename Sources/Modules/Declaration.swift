@@ -4,9 +4,9 @@ import Tokens
 public struct Declaration: Hashable, Sendable {
     
     public enum Kind: Hashable, Sendable {
-        case function
-        case structure(declarations: [Declaration])
-        case variable
+        case function(isExternal: Bool)
+        case structure(isExternal: Bool, declarations: [Declaration])
+        case variable(isExternal: Bool)
     }
     
     public let kind: Kind
@@ -20,8 +20,8 @@ public struct Declaration: Hashable, Sendable {
     }
     
     @inlinable
-    public static func function(accessControl: AccessControl) -> Declaration {
-        Declaration(_kind: .function, accessControl: accessControl)
+    public static func function(accessControl: AccessControl, isExternal: Bool = false) -> Declaration {
+        Declaration(_kind: .function(isExternal: isExternal), accessControl: accessControl)
     }
     
     @inlinable
@@ -31,6 +31,6 @@ public struct Declaration: Hashable, Sendable {
         isExternal: Bool = false,
         @ArrayBuilder<Declaration> makeDeclarations: () -> [Declaration]
     ) -> Declaration {
-        Declaration(_kind: .structure(declarations: makeDeclarations()), accessControl: accessControl)
+        Declaration(_kind: .structure(isExternal: isExternal, declarations: makeDeclarations()), accessControl: accessControl)
     }
 }
