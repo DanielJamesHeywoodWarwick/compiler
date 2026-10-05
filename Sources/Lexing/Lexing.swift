@@ -48,6 +48,8 @@ public func tokens(for text: String) throws(LexingError) -> [Token] {
                         .openingBrace(atLine: lineNumber, column: columnNumber)
                     case "}":
                         .closingBrace(atLine: lineNumber, column: columnNumber)
+                    case ":":
+                        .colon(atLine: lineNumber, column: columnNumber)
                     case "-" where unlexedText.hasPrefix("->"):
                         .arrow(atLine: lineNumber, column: columnNumber)
                     default:

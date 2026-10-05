@@ -109,6 +109,8 @@ struct CompilerCommand: ParsableCommand {
                         ("Opening brace '{'")
                     case .closingBrace:
                         ("Closing brace '}'")
+                    case .colon:
+                        "Colon ':'"
                     case .arrow:
                         "Arrow '->'"
                     }

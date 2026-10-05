@@ -17,6 +17,7 @@ public struct Token: Hashable, Sendable {
         case closingAngleBracket
         case openingBrace
         case closingBrace
+        case colon
         case arrow
     }
     
@@ -111,6 +112,11 @@ public struct Token: Hashable, Sendable {
     }
     
     @inlinable
+    public static func colon(atLine lineNumber: Int, column columnNumber: Int) -> Token {
+        Token(_kind: .arrow, atLine: lineNumber, column: columnNumber)
+    }
+    
+    @inlinable
     public static func arrow(atLine lineNumber: Int, column columnNumber: Int) -> Token {
         Token(_kind: .arrow, atLine: lineNumber, column: columnNumber)
     }
@@ -151,6 +157,8 @@ extension Token: CustomStringConvertible {
             "openingBrace(atLine: \(lineNumber), column: \(columnNumber))"
         case .closingBrace:
             "closingBrace(atLine: \(lineNumber), column: \(columnNumber))"
+        case .colon:
+            "colon(atLine: \(lineNumber), column: \(columnNumber))"
         case .arrow:
             "arrow(atLine: \(lineNumber), column: \(columnNumber))"
         }
@@ -192,6 +200,8 @@ extension Token.Kind: CustomStringConvertible {
             "{"
         case .closingBrace:
             "}"
+        case .colon:
+            ":"
         case .arrow:
             "->"
         }
@@ -233,6 +243,8 @@ extension Token.Kind: CustomDebugStringConvertible {
             "openingBrace"
         case .closingBrace:
             "closingBrace"
+        case .colon:
+            "colon"
         case .arrow:
             "arrow"
         }
