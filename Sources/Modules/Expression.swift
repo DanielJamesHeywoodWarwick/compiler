@@ -22,3 +22,37 @@ public struct Expression: Hashable, Sendable {
         self.columnNumber = columnNumber
     }
 }
+
+extension Expression: CustomStringConvertible {
+    
+    @inlinable
+    public var description: String {
+        switch kind {
+        case let .integerLiteral(integerLiteral):
+            "integerLiteral(\"\(integerLiteral)\", atLine: \(lineNumber), column: \(columnNumber))"
+        }
+    }
+}
+
+extension Expression.Kind: CustomStringConvertible {
+    
+    @inlinable
+    public var description: String {
+        switch self {
+        case let .integerLiteral(integerLiteral):
+            "\(integerLiteral)"
+        }
+    }
+}
+
+extension Expression.Kind: CustomDebugStringConvertible {
+    
+    @inlinable
+    public var debugDescription: String {
+        switch self {
+        case let .integerLiteral(integerLiteral):
+            "integerLiteral(\(integerLiteral))"
+        }
+    }
+}
+
