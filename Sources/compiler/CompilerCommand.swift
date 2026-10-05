@@ -93,6 +93,8 @@ struct CompilerCommand: ParsableCommand {
                         "Keyword 'return'"
                     case .structureKeyword:
                         "Keyword 'structure'"
+                    case .variableKeyword:
+                        "Keyword 'variable'"
                     case let .integerLiteral(integerLiteral):
                         "Integer literal '\(integerLiteral)'"
                     case .openingParenthesis:
