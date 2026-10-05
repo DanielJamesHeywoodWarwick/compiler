@@ -6,6 +6,7 @@ public struct Declaration: Hashable, Sendable {
     public enum Kind: Hashable, Sendable {
         case function
         case structure(members: [Declaration])
+        case variable
     }
     
     public let kind: Kind
@@ -34,6 +35,11 @@ public struct Declaration: Hashable, Sendable {
     ) -> Declaration {
         Declaration(_kind: .structure(members: makeMembers()), identifierText: identifierText, accessControl: accessControl)
     }
+    
+    @inlinable
+    public static func variable(_ identifierText: String, accessControl: AccessControl) -> Declaration {
+        Declaration(_kind: .variable, identifierText: identifierText, accessControl: accessControl)
+    }
 }
 
 extension Declaration: CustomStringConvertible {
@@ -45,6 +51,8 @@ extension Declaration: CustomStringConvertible {
             "function(\"\(identifier)\", accessControl: \(accessControl))"
         case let .structure(members):
             "structure(\"\(identifier)\", accessControl: \(accessControl), members: \(members))"
+        case .variable:
+            "variable(\"\(identifier)\", accessControl: \(accessControl))"
         }
     }
 }
