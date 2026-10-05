@@ -26,6 +26,7 @@ public struct Declaration: Hashable, Sendable {
     
     @inlinable
     public static func structure(
+        _ name: String,
         accessControl: AccessControl,
         isExternal: Bool = false,
         @ArrayBuilder<Declaration> makeDeclarations: () -> [Declaration]
