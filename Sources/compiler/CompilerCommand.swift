@@ -89,8 +89,8 @@ struct CompilerCommand: ParsableCommand {
                         "Keyword 'public'"
                     case .returnKeyword:
                         "Keyword 'return'"
-                    case let .integerLiteral(integerLiteral):
-                        "Integer literal '\(integerLiteral)'"
+                    case let .integerLiteral(literal):
+                        "Integer literal '\(literal)'"
                     case .openingParenthesis:
                         "Opening parenthesis '('"
                     case .closingParenthesis:

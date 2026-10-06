@@ -113,8 +113,8 @@ extension Token: CustomDebugStringConvertible {
             "publicKeyword(atLine: \(lineNumber), column: \(columnNumber))"
         case .returnKeyword:
             "returnKeyword(atLine: \(lineNumber), column: \(columnNumber))"
-        case let .integerLiteral(integerLiteral):
-            "integerLiteral(\"\(integerLiteral)\", atLine: \(lineNumber), column: \(columnNumber))"
+        case let .integerLiteral(literal):
+            "integerLiteral(\"\(literal)\", atLine: \(lineNumber), column: \(columnNumber))"
         case .openingParenthesis:
             "openingParenthesis(atLine: \(lineNumber), column: \(columnNumber))"
         case .closingParenthesis:
@@ -148,8 +148,8 @@ extension Token.Kind: CustomStringConvertible {
             "public"
         case .returnKeyword:
             "return"
-        case let .integerLiteral(integerLiteral):
-            "\(integerLiteral)"
+        case let .integerLiteral(literal):
+            "\(literal)"
         case .openingParenthesis:
             "("
         case .closingParenthesis:
@@ -183,8 +183,8 @@ extension Token.Kind: CustomDebugStringConvertible {
             "publicKeyword"
         case .returnKeyword:
             "returnKeyword"
-        case let .integerLiteral(integerLiteral):
-            "integerLiteral(\(integerLiteral))"
+        case let .integerLiteral(literal):
+            "integerLiteral(\(literal))"
         case .openingParenthesis:
             "openingParenthesis"
         case .closingParenthesis:
