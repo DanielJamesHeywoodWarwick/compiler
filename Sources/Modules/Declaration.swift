@@ -4,7 +4,7 @@ import Tokens
 public struct Declaration: Hashable, Sendable {
     
     public enum Kind: Hashable, Sendable {
-        case function(body: [Statement])
+        case function(Identifier, accessLevel: AccessLevel, isExternal: Bool, returnType: `Type`, body: [Statement])
     }
     
     public let kind: Kind
@@ -19,10 +19,23 @@ public struct Declaration: Hashable, Sendable {
     
     @inlinable
     public static func function(
+        _ identifier: Identifier,
+        accessLevel: AccessLevel,
+        isExternal: Bool = false,
+        returnType: `Type`,
         at location: SourceLocation,
         @ArrayBuilder<Statement> makeBody: () -> [Statement]
     ) -> Declaration {
-        Declaration(_kind: .function(body: makeBody()), at: location)
+        Declaration(
+            _kind: .function(
+                identifier,
+                accessLevel: accessLevel,
+                isExternal: isExternal,
+                returnType: returnType,
+                body: makeBody()
+            ),
+            at: location
+        )
     }
 }
 
@@ -31,8 +44,11 @@ extension Declaration: CustomDebugStringConvertible {
     @inlinable
     public var debugDescription: String {
         let description = switch kind {
-        case let .function(body):
-            "function(body: \(body), atLine: \(location.line), column: \(location.column))"
+        case let .function(identifier, accessLevel, isExternal, returnType, body):
+            """
+            function(\"\(identifier)\", accessLevel: \(accessLevel), isExternal: \(isExternal), returnType: \(returnType), \
+            body: \(body), atLine: \(location.line), column: \(location.column)
+            """
         }
         return "Declaration.\(description)"
     }
@@ -43,8 +59,11 @@ extension Declaration.Kind: CustomDebugStringConvertible {
     @inlinable
     public var debugDescription: String {
         let description = switch self {
-        case let .function(body):
-            "function(body: \(body))"
+        case let .function(identifier, accessLevel, isExternal, returnType, body):
+            """
+            function(\"\(identifier)\", accessLevel: \(accessLevel), isExternal: \(isExternal), returnType: \(returnType), \
+            body: \(body))
+            """
         }
         return "Declaration.Kind.\(description)"
     }
