@@ -27,3 +27,25 @@ public struct Expression: Hashable, Sendable {
         Expression(_kind: .integerLiteral(literal), atLine: lineNumber, column: columnNumber)
     }
 }
+
+extension Expression.Kind: CustomStringConvertible {
+    
+    @inlinable
+    public var description: String {
+        switch self {
+        case let .integerLiteral(literal):
+            "\(literal)"
+        }
+    }
+}
+
+extension Expression.Kind: CustomDebugStringConvertible {
+    
+    @inlinable
+    public var debugDescription: String {
+        switch self {
+        case let .integerLiteral(literal):
+            "integerLiteral(\"\(literal)\")"
+        }
+    }
+}

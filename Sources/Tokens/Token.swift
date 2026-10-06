@@ -184,7 +184,7 @@ extension Token.Kind: CustomDebugStringConvertible {
         case .returnKeyword:
             "returnKeyword"
         case let .integerLiteral(literal):
-            "integerLiteral(\(literal))"
+            "integerLiteral(\"\(literal)\")"
         case .openingParenthesis:
             "openingParenthesis"
         case .closingParenthesis:

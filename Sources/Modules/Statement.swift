@@ -25,3 +25,25 @@ public struct Statement: Hashable, Sendable {
         Statement(_kind: .return(expression), atLine: lineNumber, column: columnNumber)
     }
 }
+
+extension Statement.Kind: CustomStringConvertible {
+    
+    @inlinable
+    public var description: String {
+        switch self {
+        case let .return(expression):
+            "return \(expression.kind)"
+        }
+    }
+}
+
+extension Statement.Kind: CustomDebugStringConvertible {
+    
+    @inlinable
+    public var debugDescription: String {
+        switch self {
+        case let .return(expression):
+            "return(\(expression.kind.debugDescription))"
+        }
+    }
+}
