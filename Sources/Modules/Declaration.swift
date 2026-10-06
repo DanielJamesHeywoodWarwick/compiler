@@ -19,6 +19,11 @@ public struct Declaration: Hashable, Sendable {
         self.lineNumber = lineNumber
         self.columnNumber = columnNumber
     }
+    
+    @inlinable
+    public static func function(atLine lineNumber: Int, column columnNumber: Int) -> Declaration {
+        Declaration(_kind: .function, atLine: lineNumber, column: columnNumber)
+    }
 }
 
 extension Declaration: CustomDebugStringConvertible {
