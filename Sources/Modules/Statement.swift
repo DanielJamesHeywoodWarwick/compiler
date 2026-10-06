@@ -26,6 +26,17 @@ public struct Statement: Hashable, Sendable {
     }
 }
 
+extension Statement: CustomDebugStringConvertible {
+    
+    @inlinable
+    public var debugDescription: String {
+        switch kind {
+        case let .return(expression):
+            "return(\(expression), atLine: \(lineNumber), column: \(columnNumber))"
+        }
+    }
+}
+
 extension Statement.Kind: CustomStringConvertible {
     
     @inlinable
@@ -43,7 +54,7 @@ extension Statement.Kind: CustomDebugStringConvertible {
     public var debugDescription: String {
         switch self {
         case let .return(expression):
-            "return(\(expression.kind.debugDescription))"
+            "return(\(expression))"
         }
     }
 }
