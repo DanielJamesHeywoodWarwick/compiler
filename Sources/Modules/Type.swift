@@ -4,6 +4,11 @@ import Tokens
 public struct `Type`: Hashable, Sendable {
     
     public let identifier: Identifier
+    
+    @inlinable
+    public init(_ identifier: Identifier) {
+        self.identifier = identifier
+    }
 }
 
 extension `Type`: CustomDebugStringConvertible {
