@@ -29,13 +29,46 @@ public struct Declaration: Hashable, Sendable {
     }
 }
 
+extension Declaration: CustomStringConvertible {
+    
+    @inlinable
+    public var description: String {
+        switch kind {
+        case let .function(body):
+            "function(body: \(body), atLine: \(lineNumber), column: \(columnNumber))"
+        }
+    }
+}
+
 extension Declaration: CustomDebugStringConvertible {
     
     @inlinable
     public var debugDescription: String {
         switch kind {
-        case .function:
-            "function(atLine: \(lineNumber), column: \(columnNumber))"
+        case let .function(body):
+            "Declaration.function(body: \(body), atLine: \(lineNumber), column: \(columnNumber))"
+        }
+    }
+}
+
+extension Declaration.Kind: CustomStringConvertible {
+    
+    @inlinable
+    public var description: String {
+        switch self {
+        case let .function(body):
+            "function(body: \(body))"
+        }
+    }
+}
+
+extension Declaration.Kind: CustomDebugStringConvertible {
+    
+    @inlinable
+    public var debugDescription: String {
+        switch self {
+        case let .function(body):
+            "Declaration.Kind.function(body: \(body))"
         }
     }
 }
