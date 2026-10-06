@@ -2,7 +2,7 @@
 public struct Declaration: Hashable, Sendable {
     
     public enum Kind: Hashable, Sendable {
-        case function
+        case function(body: [Statement])
     }
     
     public let kind: Kind
@@ -21,8 +21,11 @@ public struct Declaration: Hashable, Sendable {
     }
     
     @inlinable
-    public static func function(atLine lineNumber: Int, column columnNumber: Int) -> Declaration {
-        Declaration(_kind: .function, atLine: lineNumber, column: columnNumber)
+    public static func function(
+        atLine lineNumber: Int, column columnNumber: Int,
+        @ArrayBuilder<Statement> makeBody: () -> [Statement]
+    ) -> Declaration {
+        Declaration(_kind: .function(body: makeBody()), atLine: lineNumber, column: columnNumber)
     }
 }
 
