@@ -9,22 +9,17 @@ public struct Expression: Hashable, Sendable {
     
     public let kind: Kind
     
-    public let lineNumber: Int
-    
-    public let columnNumber: Int
+    public let location: SourceLocation
     
     @inlinable
-    internal init(_kind: Kind, atLine lineNumber: Int, column columnNumber: Int) {
+    internal init(_kind: Kind, at location: SourceLocation) {
         kind = _kind
-        precondition(lineNumber >= 1, "Expected a line number of at least 1, but got \(lineNumber)")
-        precondition(columnNumber >= 1, "Expected a column number of at least 1, but got \(columnNumber)")
-        self.lineNumber = lineNumber
-        self.columnNumber = columnNumber
+        self.location = location
     }
     
     @inlinable
-    public static func integerLiteral(_ literal: IntegerLiteral, atLine lineNumber: Int, column columnNumber: Int) -> Expression {
-        Expression(_kind: .integerLiteral(literal), atLine: lineNumber, column: columnNumber)
+    public static func integerLiteral(_ literal: IntegerLiteral, at location: SourceLocation) -> Expression {
+        Expression(_kind: .integerLiteral(literal), at: location)
     }
 }
 
@@ -34,7 +29,7 @@ extension Expression: CustomDebugStringConvertible {
     public var debugDescription: String {
         let description = switch kind {
         case let .integerLiteral(literal):
-            "integerLiteral(\"\(literal)\", atLine: \(lineNumber), column: \(columnNumber))"
+            "integerLiteral(\"\(literal)\", atLine: \(location.line), column: \(location.column))"
         }
         return "Expression.\(description)"
     }

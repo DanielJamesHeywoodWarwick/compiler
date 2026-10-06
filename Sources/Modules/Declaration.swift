@@ -1,3 +1,5 @@
+import Tokens
+
 @frozen
 public struct Declaration: Hashable, Sendable {
     
@@ -7,25 +9,20 @@ public struct Declaration: Hashable, Sendable {
     
     public let kind: Kind
     
-    public let lineNumber: Int
-    
-    public let columnNumber: Int
+    public let location: SourceLocation
     
     @inlinable
-    internal init(_kind: Kind, atLine lineNumber: Int, column columnNumber: Int) {
+    internal init(_kind: Kind, at location: SourceLocation) {
         kind = _kind
-        precondition(lineNumber >= 1, "Expected a line number of at least 1, but got \(lineNumber)")
-        precondition(columnNumber >= 1, "Expected a column number of at least 1, but got \(columnNumber)")
-        self.lineNumber = lineNumber
-        self.columnNumber = columnNumber
+        self.location = location
     }
     
     @inlinable
     public static func function(
-        atLine lineNumber: Int, column columnNumber: Int,
+        at location: SourceLocation,
         @ArrayBuilder<Statement> makeBody: () -> [Statement]
     ) -> Declaration {
-        Declaration(_kind: .function(body: makeBody()), atLine: lineNumber, column: columnNumber)
+        Declaration(_kind: .function(body: makeBody()), at: location)
     }
 }
 
@@ -35,7 +32,7 @@ extension Declaration: CustomDebugStringConvertible {
     public var debugDescription: String {
         let description = switch kind {
         case let .function(body):
-            "function(body: \(body), atLine: \(lineNumber), column: \(columnNumber))"
+            "function(body: \(body), atLine: \(location.line), column: \(location.column))"
         }
         return "Declaration.\(description)"
     }

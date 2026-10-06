@@ -106,7 +106,7 @@ struct CompilerCommand: ParsableCommand {
                     case .arrow:
                         "Arrow '->'"
                     }
-                    print("  \(description) at line \(token.lineNumber), column \(token.columnNumber)")
+                    print("  \(description) at line \(token.location.line), column \(token.location.column)")
                 }
                 print()
             }

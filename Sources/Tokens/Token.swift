@@ -19,17 +19,12 @@ public struct Token: Hashable, Sendable {
     
     public let kind: Kind
     
-    public let lineNumber: Int
-    
-    public let columnNumber: Int
+    public let location: SourceLocation
     
     @inlinable
     internal init(_kind: Kind, atLine lineNumber: Int, column columnNumber: Int) {
         kind = _kind
-        precondition(lineNumber >= 1, "Expected a line number of at least 1, but got \(lineNumber)")
-        precondition(columnNumber >= 1, "Expected a column number of at least 1, but got \(columnNumber)")
-        self.lineNumber = lineNumber
-        self.columnNumber = columnNumber
+        location = SourceLocation(line: lineNumber, column: columnNumber)
     }
     
     @inlinable
@@ -108,33 +103,34 @@ extension Token: CustomDebugStringConvertible {
     
     @inlinable
     public var debugDescription: String {
+        let locationDescription = "atLine: \(location.line), column: \(location.column)"
         let description = switch kind {
         case let .identifier(identifier):
-            "identifier(\"\(identifier)\", atLine: \(lineNumber), column: \(columnNumber))"
+            "identifier(\"\(identifier)\", \(locationDescription))"
         case .externalKeyword:
-            "externalKeyword(atLine: \(lineNumber), column: \(columnNumber))"
+            "externalKeyword(\(locationDescription))"
         case .functionKeyword:
-            "functionKeyword(atLine: \(lineNumber), column: \(columnNumber))"
+            "functionKeyword(\(locationDescription))"
         case .publicKeyword:
-            "publicKeyword(atLine: \(lineNumber), column: \(columnNumber))"
+            "publicKeyword(\(locationDescription))"
         case .returnKeyword:
-            "returnKeyword(atLine: \(lineNumber), column: \(columnNumber))"
+            "returnKeyword(\(locationDescription))"
         case let .integerLiteral(literal):
-            "integerLiteral(\"\(literal)\", atLine: \(lineNumber), column: \(columnNumber))"
+            "integerLiteral(\"\(literal)\", \(locationDescription))"
         case .openingParenthesis:
-            "openingParenthesis(atLine: \(lineNumber), column: \(columnNumber))"
+            "openingParenthesis(\(locationDescription))"
         case .closingParenthesis:
-            "closingParenthesis(atLine: \(lineNumber), column: \(columnNumber))"
+            "closingParenthesis(\(locationDescription))"
         case .openingAngleBracket:
-            "openingAngleBracket(atLine: \(lineNumber), column: \(columnNumber))"
+            "openingAngleBracket(\(locationDescription))"
         case .closingAngleBracket:
-            "closingAngleBracket(atLine: \(lineNumber), column: \(columnNumber))"
+            "closingAngleBracket(\(locationDescription))"
         case .openingBrace:
-            "openingBrace(atLine: \(lineNumber), column: \(columnNumber))"
+            "openingBrace(\(locationDescription))"
         case .closingBrace:
-            "closingBrace(atLine: \(lineNumber), column: \(columnNumber))"
+            "closingBrace(\(locationDescription))"
         case .arrow:
-            "arrow(atLine: \(lineNumber), column: \(columnNumber))"
+            "arrow(\(locationDescription))"
         }
         return "Token.\(description)"
     }
