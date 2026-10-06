@@ -1,3 +1,5 @@
+import Tokens
+
 @frozen
 public struct LexingError: Hashable, Error {
     
@@ -7,17 +9,12 @@ public struct LexingError: Hashable, Error {
     
     public let kind: Kind
     
-    public let lineNumber: Int
-    
-    public let columnNumber: Int
+    public let location: SourceLocation
     
     @inlinable
     internal init(_kind: Kind, atLine lineNumber: Int, column columnNumber: Int) {
         kind = _kind
-        precondition(lineNumber >= 1, "Expected a line number of at least 1, but got \(lineNumber)")
-        precondition(columnNumber >= 1, "Expected a column number of at least 1, but got \(columnNumber)")
-        self.lineNumber = lineNumber
-        self.columnNumber = columnNumber
+        self.location = SourceLocation(line: lineNumber, column: columnNumber)
     }
     
     @inlinable
@@ -33,9 +30,10 @@ extension LexingError: CustomStringConvertible {
     
     @inlinable
     public var description: String {
-        switch kind {
+        let locationDescription = "at line \(location.line), column \(location.column)"
+        return switch kind {
         case let .unexpectedCharacter(character):
-            "Unexpected character '\(character)' at line \(lineNumber), column \(columnNumber)"
+            "Unexpected character '\(character)' \(locationDescription)"
         }
     }
 }
@@ -44,9 +42,11 @@ extension LexingError: CustomDebugStringConvertible {
     
     @inlinable
     public var debugDescription: String {
-        switch kind {
+        let locationDescription = "atLine: \(location.line), column: \(location.column)"
+        let description = switch kind {
         case let .unexpectedCharacter(character):
-            "unexpectedCharacter(\(character.debugDescription), atLine: \(lineNumber), column: \(columnNumber))"
+            "unexpectedCharacter(\(character.debugDescription), \(locationDescription))"
         }
+        return "Lexing.LexingError.\(description)"
     }
 }

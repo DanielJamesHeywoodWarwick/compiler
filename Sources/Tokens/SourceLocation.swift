@@ -13,9 +13,3 @@ public struct SourceLocation: Hashable, Sendable {
         self.column = column
     }
 }
-
-extension SourceLocation: CustomDebugStringConvertible {
-    
-    @inlinable
-    public var debugDescription: String { "SourceLocation(line: \(line), column: \(column))" }
-}

@@ -28,7 +28,7 @@ extension Identifier: CustomStringConvertible {
 extension Identifier: CustomDebugStringConvertible {
     
     @inlinable
-    public var debugDescription: String { "Identifier(\(_text.debugDescription))" }
+    public var debugDescription: String { "Tokens.Identifier(\(_text.debugDescription))" }
 }
 
 extension Identifier: CustomReflectable {

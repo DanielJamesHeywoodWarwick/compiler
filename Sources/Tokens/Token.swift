@@ -132,7 +132,7 @@ extension Token: CustomDebugStringConvertible {
         case .arrow:
             "arrow(\(locationDescription))"
         }
-        return "Token.\(description)"
+        return "Tokens.Token.\(description)"
     }
 }
 
@@ -203,6 +203,6 @@ extension Token.Kind: CustomDebugStringConvertible {
         case .arrow:
             "arrow"
         }
-        return "Token.Kind.\(description)"
+        return "Tokens.Token.Kind.\(description)"
     }
 }
