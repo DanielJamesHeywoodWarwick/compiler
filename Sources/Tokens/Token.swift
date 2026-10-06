@@ -98,10 +98,10 @@ public struct Token: Hashable, Sendable {
     }
 }
 
-extension Token: CustomStringConvertible {
+extension Token: CustomDebugStringConvertible {
     
     @inlinable
-    public var description: String {
+    public var debugDescription: String {
         switch kind {
         case let .identifier(identifier):
             "identifier(\"\(identifier)\", atLine: \(lineNumber), column: \(columnNumber))"
