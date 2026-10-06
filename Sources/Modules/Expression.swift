@@ -28,13 +28,35 @@ public struct Expression: Hashable, Sendable {
     }
 }
 
+extension Expression: CustomStringConvertible {
+    
+    @inlinable
+    public var description: String {
+        switch kind {
+        case let .integerLiteral(literal):
+            "integerLiteral(\"\(literal)\", atLine: \(lineNumber), column: \(columnNumber))"
+        }
+    }
+}
+
 extension Expression: CustomDebugStringConvertible {
     
     @inlinable
     public var debugDescription: String {
         switch kind {
         case let .integerLiteral(literal):
-            "integerLiteral(\"\(literal)\", atLine: \(lineNumber), column: \(columnNumber))"
+            "Expression.integerLiteral(\"\(literal)\", atLine: \(lineNumber), column: \(columnNumber))"
+        }
+    }
+}
+
+extension Expression.Kind: CustomStringConvertible {
+    
+    @inlinable
+    public var description: String {
+        switch self {
+        case let .integerLiteral(literal):
+            "integerLiteral(\"\(literal)\")"
         }
     }
 }
@@ -45,7 +67,7 @@ extension Expression.Kind: CustomDebugStringConvertible {
     public var debugDescription: String {
         switch self {
         case let .integerLiteral(literal):
-            "integerLiteral(\"\(literal)\")"
+            "Expression.Kind.integerLiteral(\"\(literal)\")"
         }
     }
 }

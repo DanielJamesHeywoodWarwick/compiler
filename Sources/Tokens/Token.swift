@@ -110,31 +110,31 @@ extension Token: CustomDebugStringConvertible {
     public var debugDescription: String {
         switch kind {
         case let .identifier(identifier):
-            "identifier(\"\(identifier)\", atLine: \(lineNumber), column: \(columnNumber))"
+            "Token.identifier(\"\(identifier)\", atLine: \(lineNumber), column: \(columnNumber))"
         case .externalKeyword:
-            "externalKeyword(atLine: \(lineNumber), column: \(columnNumber))"
+            "Token.externalKeyword(atLine: \(lineNumber), column: \(columnNumber))"
         case .functionKeyword:
-            "functionKeyword(atLine: \(lineNumber), column: \(columnNumber))"
+            "Token.functionKeyword(atLine: \(lineNumber), column: \(columnNumber))"
         case .publicKeyword:
-            "publicKeyword(atLine: \(lineNumber), column: \(columnNumber))"
+            "Token.publicKeyword(atLine: \(lineNumber), column: \(columnNumber))"
         case .returnKeyword:
-            "returnKeyword(atLine: \(lineNumber), column: \(columnNumber))"
+            "Token.returnKeyword(atLine: \(lineNumber), column: \(columnNumber))"
         case let .integerLiteral(literal):
-            "integerLiteral(\"\(literal)\", atLine: \(lineNumber), column: \(columnNumber))"
+            "Token.integerLiteral(\"\(literal)\", atLine: \(lineNumber), column: \(columnNumber))"
         case .openingParenthesis:
-            "openingParenthesis(atLine: \(lineNumber), column: \(columnNumber))"
+            "Token.openingParenthesis(atLine: \(lineNumber), column: \(columnNumber))"
         case .closingParenthesis:
-            "closingParenthesis(atLine: \(lineNumber), column: \(columnNumber))"
+            "Token.closingParenthesis(atLine: \(lineNumber), column: \(columnNumber))"
         case .openingAngleBracket:
-            "openingAngleBracket(atLine: \(lineNumber), column: \(columnNumber))"
+            "Token.openingAngleBracket(atLine: \(lineNumber), column: \(columnNumber))"
         case .closingAngleBracket:
-            "closingAngleBracket(atLine: \(lineNumber), column: \(columnNumber))"
+            "Token.closingAngleBracket(atLine: \(lineNumber), column: \(columnNumber))"
         case .openingBrace:
-            "openingBrace(atLine: \(lineNumber), column: \(columnNumber))"
+            "Token.openingBrace(atLine: \(lineNumber), column: \(columnNumber))"
         case .closingBrace:
-            "closingBrace(atLine: \(lineNumber), column: \(columnNumber))"
+            "Token.closingBrace(atLine: \(lineNumber), column: \(columnNumber))"
         case .arrow:
-            "arrow(atLine: \(lineNumber), column: \(columnNumber))"
+            "Token.arrow(atLine: \(lineNumber), column: \(columnNumber))"
         }
     }
 }
@@ -180,31 +180,31 @@ extension Token.Kind: CustomDebugStringConvertible {
     public var debugDescription: String {
         switch self {
         case let .identifier(identifier):
-            "identifier(\"\(identifier)\")"
+            "Token.Kind.identifier(\"\(identifier)\")"
         case .externalKeyword:
-            "externalKeyword"
+            "Token.Kind.externalKeyword"
         case .functionKeyword:
-            "functionKeyword"
+            "Token.Kind.functionKeyword"
         case .publicKeyword:
-            "publicKeyword"
+            "Token.Kind.publicKeyword"
         case .returnKeyword:
-            "returnKeyword"
+            "Token.Kind.returnKeyword"
         case let .integerLiteral(literal):
-            "integerLiteral(\"\(literal)\")"
+            "Token.Kind.integerLiteral(\"\(literal)\")"
         case .openingParenthesis:
-            "openingParenthesis"
+            "Token.Kind.openingParenthesis"
         case .closingParenthesis:
-            "closingParenthesis"
+            "Token.Kind.closingParenthesis"
         case .openingAngleBracket:
-            "openingAngleBracket"
+            "Token.Kind.openingAngleBracket"
         case .closingAngleBracket:
-            "closingAngleBracket"
+            "Token.Kind.closingAngleBracket"
         case .openingBrace:
-            "openingBrace"
+            "Token.Kind.openingBrace"
         case .closingBrace:
-            "closingBrace"
+            "Token.Kind.closingBrace"
         case .arrow:
-            "arrow"
+            "Token.Kind.arrow"
         }
     }
 }
