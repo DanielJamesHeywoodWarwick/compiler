@@ -101,7 +101,7 @@ public struct Token: Hashable, Sendable {
 extension Token: CustomStringConvertible {
     
     @inlinable
-    public var description: String { "\(kind)" }
+    public var description: String { kind.description }
 }
 
 extension Token: CustomDebugStringConvertible {
@@ -145,7 +145,7 @@ extension Token.Kind: CustomStringConvertible {
     public var description: String {
         switch self {
         case let .identifier(identifier):
-            "\(identifier)"
+            identifier.description
         case .externalKeyword:
             "external"
         case .functionKeyword:
@@ -155,7 +155,7 @@ extension Token.Kind: CustomStringConvertible {
         case .returnKeyword:
             "return"
         case let .integerLiteral(literal):
-            "\(literal)"
+            literal.description
         case .openingParenthesis:
             "("
         case .closingParenthesis:
