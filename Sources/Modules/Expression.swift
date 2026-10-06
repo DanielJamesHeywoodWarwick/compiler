@@ -28,36 +28,26 @@ public struct Expression: Hashable, Sendable {
     }
 }
 
-extension Expression: CustomStringConvertible {
-    
-    @inlinable
-    public var description: String {
-        switch kind {
-        case let .integerLiteral(literal):
-            "integerLiteral(\"\(literal)\", atLine: \(lineNumber), column: \(columnNumber))"
-        }
-    }
-}
-
 extension Expression: CustomDebugStringConvertible {
     
     @inlinable
-    public var debugDescription: String { "Expression.\(self)" }
-}
-
-extension Expression.Kind: CustomStringConvertible {
-    
-    @inlinable
-    public var description: String {
-        switch self {
+    public var debugDescription: String {
+        let description = switch kind {
         case let .integerLiteral(literal):
-            "integerLiteral(\"\(literal)\")"
+            "integerLiteral(\"\(literal)\", atLine: \(lineNumber), column: \(columnNumber))"
         }
+        return "Expression.\(description)"
     }
 }
 
 extension Expression.Kind: CustomDebugStringConvertible {
     
     @inlinable
-    public var debugDescription: String { "Expression.Kind.\(self)" }
+    public var debugDescription: String {
+        let description = switch self {
+        case let .integerLiteral(literal):
+            "integerLiteral(\"\(literal)\")"
+        }
+        return "Expression.Kind.\(description)"
+    }
 }
