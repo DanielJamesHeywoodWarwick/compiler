@@ -98,6 +98,12 @@ public struct Token: Hashable, Sendable {
     }
 }
 
+extension Token: CustomStringConvertible {
+    
+    @inlinable
+    public var description: String { "\(kind)" }
+}
+
 extension Token: CustomDebugStringConvertible {
     
     @inlinable

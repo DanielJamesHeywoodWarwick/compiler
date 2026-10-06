@@ -48,7 +48,7 @@ public func tokens(for text: String) throws(LexingError) -> [Token] {
                         throw .unexpectedCharacter(character, atLine: lineNumber, column: columnNumber)
                     }
                 }
-                unlexedText = unlexedText.trimmingPrefix("\(token.kind)")
+                unlexedText = unlexedText.trimmingPrefix("\(token)")
                 tokens.append(token)
             }
         }

@@ -18,27 +18,3 @@ public struct Declaration: Hashable, Sendable {
         self.columnNumber = columnNumber
     }
 }
-
-extension Declaration: CustomDebugStringConvertible {
-    
-    @inlinable
-    public var debugDescription: String {
-        switch kind {}
-    }
-}
-
-extension Declaration.Kind: CustomStringConvertible {
-    
-    @inlinable
-    public var description: String {
-        switch self {}
-    }
-}
-
-extension Declaration.Kind: CustomDebugStringConvertible {
-    
-    @inlinable
-    public var debugDescription: String {
-        switch self {}
-    }
-}
