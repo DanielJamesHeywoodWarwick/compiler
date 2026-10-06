@@ -1,7 +1,9 @@
 @frozen
 public struct Declaration: Hashable, Sendable {
     
-    public enum Kind: Hashable, Sendable {}
+    public enum Kind: Hashable, Sendable {
+        case function
+    }
     
     public let kind: Kind
     
@@ -16,5 +18,16 @@ public struct Declaration: Hashable, Sendable {
         precondition(columnNumber >= 1, "Expected a column number of at least 1, but got \(columnNumber)")
         self.lineNumber = lineNumber
         self.columnNumber = columnNumber
+    }
+}
+
+extension Declaration: CustomDebugStringConvertible {
+    
+    @inlinable
+    public var debugDescription: String {
+        switch kind {
+        case .function:
+            "function(atLine: \(lineNumber), column: \(columnNumber))"
+        }
     }
 }
