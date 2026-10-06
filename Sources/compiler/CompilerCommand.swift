@@ -85,32 +85,24 @@ struct CompilerCommand: ParsableCommand {
                         "Keyword 'external'"
                     case .functionKeyword:
                         "Keyword 'function'"
-                    case .privateKeyword:
-                        "Keyword 'private'"
                     case .publicKeyword:
                         "Keyword 'public'"
                     case .returnKeyword:
                         "Keyword 'return'"
-                    case .structureKeyword:
-                        "Keyword 'structure'"
-                    case .variableKeyword:
-                        "Keyword 'variable'"
                     case let .integerLiteral(integerLiteral):
                         "Integer literal '\(integerLiteral)'"
                     case .openingParenthesis:
                         "Opening parenthesis '('"
                     case .closingParenthesis:
-                        ("Closing parenthesis ')'")
+                        "Closing parenthesis ')'"
                     case .openingAngleBracket:
-                        ("Opening angle bracket '<'")
+                        "Opening angle bracket '<'"
                     case .closingAngleBracket:
-                        ("Closing angle bracket '>'")
+                        "Closing angle bracket '>'"
                     case .openingBrace:
-                        ("Opening brace '{'")
+                        "Opening brace '{'"
                     case .closingBrace:
-                        ("Closing brace '}'")
-                    case .colon:
-                        "Colon ':'"
+                        "Closing brace '}'"
                     case .arrow:
                         "Arrow '->'"
                     }

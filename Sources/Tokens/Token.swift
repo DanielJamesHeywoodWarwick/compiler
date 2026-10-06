@@ -5,11 +5,8 @@ public struct Token: Hashable, Sendable {
         case identifier(Identifier)
         case externalKeyword
         case functionKeyword
-        case privateKeyword
         case publicKeyword
         case returnKeyword
-        case structureKeyword
-        case variableKeyword
         case integerLiteral(IntegerLiteral)
         case openingParenthesis
         case closingParenthesis
@@ -17,7 +14,6 @@ public struct Token: Hashable, Sendable {
         case closingAngleBracket
         case openingBrace
         case closingBrace
-        case colon
         case arrow
     }
     
@@ -52,11 +48,6 @@ public struct Token: Hashable, Sendable {
     }
     
     @inlinable
-    public static func privateKeyword(atLine lineNumber: Int, column columnNumber: Int) -> Token {
-        Token(_kind: .privateKeyword, atLine: lineNumber, column: columnNumber)
-    }
-    
-    @inlinable
     public static func publicKeyword(atLine lineNumber: Int, column columnNumber: Int) -> Token {
         Token(_kind: .publicKeyword, atLine: lineNumber, column: columnNumber)
     }
@@ -64,16 +55,6 @@ public struct Token: Hashable, Sendable {
     @inlinable
     public static func returnKeyword(atLine lineNumber: Int, column columnNumber: Int) -> Token {
         Token(_kind: .returnKeyword, atLine: lineNumber, column: columnNumber)
-    }
-    
-    @inlinable
-    public static func structureKeyword(atLine lineNumber: Int, column columnNumber: Int) -> Token {
-        Token(_kind: .structureKeyword, atLine: lineNumber, column: columnNumber)
-    }
-    
-    @inlinable
-    public static func variableKeyword(atLine lineNumber: Int, column columnNumber: Int) -> Token {
-        Token(_kind: .variableKeyword, atLine: lineNumber, column: columnNumber)
     }
     
     @inlinable
@@ -112,11 +93,6 @@ public struct Token: Hashable, Sendable {
     }
     
     @inlinable
-    public static func colon(atLine lineNumber: Int, column columnNumber: Int) -> Token {
-        Token(_kind: .arrow, atLine: lineNumber, column: columnNumber)
-    }
-    
-    @inlinable
     public static func arrow(atLine lineNumber: Int, column columnNumber: Int) -> Token {
         Token(_kind: .arrow, atLine: lineNumber, column: columnNumber)
     }
@@ -133,16 +109,10 @@ extension Token: CustomStringConvertible {
             "externalKeyword(atLine: \(lineNumber), column: \(columnNumber))"
         case .functionKeyword:
             "functionKeyword(atLine: \(lineNumber), column: \(columnNumber))"
-        case .privateKeyword:
-            "privateKeyword(atLine: \(lineNumber), column: \(columnNumber))"
         case .publicKeyword:
             "publicKeyword(atLine: \(lineNumber), column: \(columnNumber))"
         case .returnKeyword:
             "returnKeyword(atLine: \(lineNumber), column: \(columnNumber))"
-        case .structureKeyword:
-            "structureKeyword(atLine: \(lineNumber), column: \(columnNumber))"
-        case .variableKeyword:
-            "variableKeyword(atLine: \(lineNumber), column: \(columnNumber))"
         case let .integerLiteral(integerLiteral):
             "integerLiteral(\"\(integerLiteral)\", atLine: \(lineNumber), column: \(columnNumber))"
         case .openingParenthesis:
@@ -157,8 +127,6 @@ extension Token: CustomStringConvertible {
             "openingBrace(atLine: \(lineNumber), column: \(columnNumber))"
         case .closingBrace:
             "closingBrace(atLine: \(lineNumber), column: \(columnNumber))"
-        case .colon:
-            "colon(atLine: \(lineNumber), column: \(columnNumber))"
         case .arrow:
             "arrow(atLine: \(lineNumber), column: \(columnNumber))"
         }
@@ -176,16 +144,10 @@ extension Token.Kind: CustomStringConvertible {
             "external"
         case .functionKeyword:
             "function"
-        case .privateKeyword:
-            "private"
         case .publicKeyword:
             "public"
         case .returnKeyword:
             "return"
-        case .structureKeyword:
-            "structure"
-        case .variableKeyword:
-            "variable"
         case let .integerLiteral(integerLiteral):
             "\(integerLiteral)"
         case .openingParenthesis:
@@ -200,8 +162,6 @@ extension Token.Kind: CustomStringConvertible {
             "{"
         case .closingBrace:
             "}"
-        case .colon:
-            ":"
         case .arrow:
             "->"
         }
@@ -219,16 +179,10 @@ extension Token.Kind: CustomDebugStringConvertible {
             "externalKeyword"
         case .functionKeyword:
             "functionKeyword"
-        case .privateKeyword:
-            "privateKeyword"
         case .publicKeyword:
             "publicKeyword"
         case .returnKeyword:
             "returnKeyword"
-        case .structureKeyword:
-            "structureKeyword"
-        case .variableKeyword:
-            "variableKeyword"
         case let .integerLiteral(integerLiteral):
             "integerLiteral(\(integerLiteral))"
         case .openingParenthesis:
@@ -243,8 +197,6 @@ extension Token.Kind: CustomDebugStringConvertible {
             "openingBrace"
         case .closingBrace:
             "closingBrace"
-        case .colon:
-            "colon"
         case .arrow:
             "arrow"
         }

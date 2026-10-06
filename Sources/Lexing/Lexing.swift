@@ -17,16 +17,10 @@ public func tokens(for text: String) throws(LexingError) -> [Token] {
                         .externalKeyword(atLine: lineNumber, column: columnNumber)
                     case "function":
                         .functionKeyword(atLine: lineNumber, column: columnNumber)
-                    case "private":
-                        .privateKeyword(atLine: lineNumber, column: columnNumber)
                     case "public":
                         .publicKeyword(atLine: lineNumber, column: columnNumber)
                     case "return":
                         .returnKeyword(atLine: lineNumber, column: columnNumber)
-                    case "structure":
-                        .structureKeyword(atLine: lineNumber, column: columnNumber)
-                    case "variable":
-                        .variableKeyword(atLine: lineNumber, column: columnNumber)
                     default:
                         .identifier(match.output, atLine: lineNumber, column: columnNumber)
                     }
@@ -48,8 +42,6 @@ public func tokens(for text: String) throws(LexingError) -> [Token] {
                         .openingBrace(atLine: lineNumber, column: columnNumber)
                     case "}":
                         .closingBrace(atLine: lineNumber, column: columnNumber)
-                    case ":":
-                        .colon(atLine: lineNumber, column: columnNumber)
                     case "-" where unlexedText.hasPrefix("->"):
                         .arrow(atLine: lineNumber, column: columnNumber)
                     default:
