@@ -42,12 +42,7 @@ extension Expression: CustomStringConvertible {
 extension Expression: CustomDebugStringConvertible {
     
     @inlinable
-    public var debugDescription: String {
-        switch kind {
-        case let .integerLiteral(literal):
-            "Expression.integerLiteral(\"\(literal)\", atLine: \(lineNumber), column: \(columnNumber))"
-        }
-    }
+    public var debugDescription: String { "Expression.\(self)" }
 }
 
 extension Expression.Kind: CustomStringConvertible {
@@ -64,10 +59,5 @@ extension Expression.Kind: CustomStringConvertible {
 extension Expression.Kind: CustomDebugStringConvertible {
     
     @inlinable
-    public var debugDescription: String {
-        switch self {
-        case let .integerLiteral(literal):
-            "Expression.Kind.integerLiteral(\"\(literal)\")"
-        }
-    }
+    public var debugDescription: String { "Expression.Kind.\(self)" }
 }

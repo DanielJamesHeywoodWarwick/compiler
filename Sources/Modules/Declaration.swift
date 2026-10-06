@@ -43,12 +43,7 @@ extension Declaration: CustomStringConvertible {
 extension Declaration: CustomDebugStringConvertible {
     
     @inlinable
-    public var debugDescription: String {
-        switch kind {
-        case let .function(body):
-            "Declaration.function(body: \(body), atLine: \(lineNumber), column: \(columnNumber))"
-        }
-    }
+    public var debugDescription: String { "Declaration.\(self)" }
 }
 
 extension Declaration.Kind: CustomStringConvertible {
@@ -65,10 +60,5 @@ extension Declaration.Kind: CustomStringConvertible {
 extension Declaration.Kind: CustomDebugStringConvertible {
     
     @inlinable
-    public var debugDescription: String {
-        switch self {
-        case let .function(body):
-            "Declaration.Kind.function(body: \(body))"
-        }
-    }
+    public var debugDescription: String { "Declaration.Kind.\(self)" }
 }

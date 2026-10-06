@@ -40,12 +40,7 @@ extension Statement: CustomStringConvertible {
 extension Statement: CustomDebugStringConvertible {
     
     @inlinable
-    public var debugDescription: String {
-        switch kind {
-        case let .return(expression):
-            "Statement.return(\(expression), atLine: \(lineNumber), column: \(columnNumber))"
-        }
-    }
+    public var debugDescription: String { "Statement.\(self)" }
 }
 
 extension Statement.Kind: CustomStringConvertible {
@@ -62,10 +57,5 @@ extension Statement.Kind: CustomStringConvertible {
 extension Statement.Kind: CustomDebugStringConvertible {
     
     @inlinable
-    public var debugDescription: String {
-        switch self {
-        case let .return(expression):
-            "Statement.Kind.return(\(expression))"
-        }
-    }
+    public var debugDescription: String { "Statement.Kind.\(self)" }
 }
