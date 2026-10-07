@@ -1,4 +1,3 @@
-@frozen
 public struct IntegerLiteral: Hashable, Sendable {
     
     @usableFromInline

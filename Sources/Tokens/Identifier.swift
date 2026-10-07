@@ -1,4 +1,3 @@
-@frozen
 public struct Identifier: Hashable, Sendable {
     
     @usableFromInline

@@ -1,4 +1,3 @@
-@frozen
 public struct Token: Hashable, Sendable {
     
     public enum Kind: Hashable, Sendable {

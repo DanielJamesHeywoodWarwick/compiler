@@ -1,6 +1,5 @@
 import Tokens
 
-@frozen
 public struct LexingError: Hashable, Error {
     
     public enum Kind: Hashable, Sendable {

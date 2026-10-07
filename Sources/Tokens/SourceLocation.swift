@@ -1,4 +1,3 @@
-@frozen
 public struct SourceLocation: Hashable, Sendable {
     
     public let line: Int
