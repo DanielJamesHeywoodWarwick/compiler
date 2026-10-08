@@ -53,7 +53,7 @@ struct CompilerCommand: ParsableCommand {
                             default:
                                 message = nil
                             }
-                            throw StringError( "UTF-8 validation failed\(message.map { message in ": \(message)" } ?? "")")
+                            throw StringError("UTF-8 validation failed\(message.map { message in ": \(message)" } ?? "")")
                         }
                     }
                 }
@@ -115,7 +115,7 @@ struct CompilerCommand: ParsableCommand {
                 throw ValidationError("Expected '\(path)' to have extension 'source', but it has no extension")
             }
             guard `extension` == "source" else {
-                throw ValidationError( "Expected '\(path)' to have extension 'source', but it has extension '\(`extension`)'")
+                throw ValidationError("Expected '\(path)' to have extension 'source', but it has extension '\(`extension`)'")
             }
         }
     }
