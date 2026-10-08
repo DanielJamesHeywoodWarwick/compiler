@@ -15,4 +15,7 @@ public enum ArrayBuilder<T> {
     
     @inlinable
     public static func buildArray(_ components: [[T]]) -> [T] { components.flatMap { component in component } }
+    
+    @inlinable
+    public static func buildExpression(_ expression: T) -> [T] { [expression] }
 }
