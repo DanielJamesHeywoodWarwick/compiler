@@ -4,14 +4,11 @@ public struct Token: Hashable, Sendable {
         case identifier(Identifier)
         case externalKeyword
         case functionKeyword
-        case privateKeyword
         case publicKeyword
         case returnKeyword
         case integerLiteral(IntegerLiteral)
         case openingParenthesis
         case closingParenthesis
-        case openingAngleBracket
-        case closingAngleBracket
         case openingBrace
         case closingBrace
         case arrow
@@ -48,11 +45,6 @@ public struct Token: Hashable, Sendable {
     }
     
     @inlinable
-    public static func privateKeyword(at location: SourceLocation) -> Token {
-        Token(_kind: .privateKeyword, at: location)
-    }
-    
-    @inlinable
     public static func returnKeyword(at location: SourceLocation) -> Token {
         Token(_kind: .returnKeyword, at: location)
     }
@@ -70,16 +62,6 @@ public struct Token: Hashable, Sendable {
     @inlinable
     public static func closingParenthesis(at location: SourceLocation) -> Token {
         Token(_kind: .closingParenthesis, at: location)
-    }
-    
-    @inlinable
-    public static func openingAngleBracket(at location: SourceLocation) -> Token {
-        Token(_kind: .openingAngleBracket, at: location)
-    }
-    
-    @inlinable
-    public static func closingAngleBracket(at location: SourceLocation) -> Token {
-        Token(_kind: .closingAngleBracket, at: location)
     }
     
     @inlinable
@@ -116,8 +98,6 @@ extension Token: CustomDebugStringConvertible {
             "externalKeyword(\(locationDescription))"
         case .functionKeyword:
             "functionKeyword(\(locationDescription))"
-        case .privateKeyword:
-            "privateKeyword(\(locationDescription))"
         case .publicKeyword:
             "publicKeyword(\(locationDescription))"
         case .returnKeyword:
@@ -128,10 +108,6 @@ extension Token: CustomDebugStringConvertible {
             "openingParenthesis(\(locationDescription))"
         case .closingParenthesis:
             "closingParenthesis(\(locationDescription))"
-        case .openingAngleBracket:
-            "openingAngleBracket(\(locationDescription))"
-        case .closingAngleBracket:
-            "closingAngleBracket(\(locationDescription))"
         case .openingBrace:
             "openingBrace(\(locationDescription))"
         case .closingBrace:
@@ -154,8 +130,6 @@ extension Token.Kind: CustomStringConvertible {
             "external"
         case .functionKeyword:
             "function"
-        case .privateKeyword:
-            "private"
         case .publicKeyword:
             "public"
         case .returnKeyword:
@@ -166,10 +140,6 @@ extension Token.Kind: CustomStringConvertible {
             "("
         case .closingParenthesis:
             ")"
-        case .openingAngleBracket:
-            "<"
-        case .closingAngleBracket:
-            ">"
         case .openingBrace:
             "{"
         case .closingBrace:
@@ -191,8 +161,6 @@ extension Token.Kind: CustomDebugStringConvertible {
             "externalKeyword"
         case .functionKeyword:
             "functionKeyword"
-        case .privateKeyword:
-            "privateKeyword"
         case .publicKeyword:
             "publicKeyword"
         case .returnKeyword:
@@ -203,10 +171,6 @@ extension Token.Kind: CustomDebugStringConvertible {
             "openingParenthesis"
         case .closingParenthesis:
             "closingParenthesis"
-        case .openingAngleBracket:
-            "openingAngleBracket"
-        case .closingAngleBracket:
-            "closingAngleBracket"
         case .openingBrace:
             "openingBrace"
         case .closingBrace:

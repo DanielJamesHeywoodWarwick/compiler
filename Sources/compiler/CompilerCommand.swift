@@ -79,8 +79,6 @@ struct CompilerCommand: ParsableCommand {
                         "Keyword 'external'"
                     case .functionKeyword:
                         "Keyword 'function'"
-                    case .privateKeyword:
-                        "Keyword 'private'"
                     case .publicKeyword:
                         "Keyword 'public'"
                     case .returnKeyword:
@@ -91,10 +89,6 @@ struct CompilerCommand: ParsableCommand {
                         "Opening parenthesis '('"
                     case .closingParenthesis:
                         "Closing parenthesis ')'"
-                    case .openingAngleBracket:
-                        "Opening angle bracket '<'"
-                    case .closingAngleBracket:
-                        "Closing angle bracket '>'"
                     case .openingBrace:
                         "Opening brace '{'"
                     case .closingBrace:

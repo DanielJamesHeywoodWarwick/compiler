@@ -20,8 +20,6 @@ public func tokens(for text: String) throws(LexingError) -> [Token] {
                         .externalKeyword(at: location)
                     case "function":
                         .functionKeyword(at: location)
-                    case "private":
-                        .privateKeyword(at: location)
                     case "public":
                         .publicKeyword(at: location)
                     case "return":
@@ -39,10 +37,6 @@ public func tokens(for text: String) throws(LexingError) -> [Token] {
                         .openingParenthesis(at: location)
                     case ")":
                         .closingParenthesis(at: location)
-                    case "<":
-                        .openingAngleBracket(at: location)
-                    case ">":
-                        .closingAngleBracket(at: location)
                     case "{":
                         .openingBrace(at: location)
                     case "}":
