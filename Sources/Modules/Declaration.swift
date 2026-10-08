@@ -12,6 +12,8 @@ public struct Declaration: Hashable, Sendable {
     
     public let kind: Kind
     
+    public let name: Identifier
+    
     public let accessLevel: AccessLevel?
     
     public let isExternal: Bool
@@ -19,8 +21,9 @@ public struct Declaration: Hashable, Sendable {
     public let location: SourceLocation
     
     @inlinable
-    internal init(_kind: Kind, accessLevel: AccessLevel?, isExternal: Bool, at location: SourceLocation) {
+    internal init(_kind: Kind, name: Identifier, accessLevel: AccessLevel?, isExternal: Bool, at location: SourceLocation) {
         kind = _kind
+        self.name = name
         self.accessLevel = accessLevel
         self.isExternal = isExternal
         self.location = location
@@ -28,6 +31,7 @@ public struct Declaration: Hashable, Sendable {
     
     @inlinable
     public static func function(
+        _ name: Identifier,
         accessLevel: AccessLevel? = nil,
         isExternal: Bool = false,
         returnType: `Type`? = nil,
@@ -36,6 +40,7 @@ public struct Declaration: Hashable, Sendable {
     ) -> Declaration {
         Declaration(
             _kind: .function(returnType: returnType, body: makeBody()),
+            name: name,
             accessLevel: accessLevel,
             isExternal: isExternal,
             at: location
