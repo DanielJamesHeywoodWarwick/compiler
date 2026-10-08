@@ -17,7 +17,7 @@ public struct Statement: Hashable, Sendable {
     }
     
     @inlinable
-    public static func `return`(_ expression: Expression, at location: SourceLocation) -> Statement {
+    public static func `return`(_ expression: Expression? = nil, at location: SourceLocation) -> Statement {
         Statement(_kind: .return(expression), at: location)
     }
 }
