@@ -15,4 +15,13 @@ public struct Declaration: Hashable, Sendable {
         kind = _kind
         self.location = location
     }
+    
+    @inlinable
+    public static func function(
+        returnType: `Type`? = nil,
+        at location: SourceLocation,
+        @ArrayBuilder<Statement> makeBody: () -> [Statement]
+    ) -> Declaration {
+        Declaration(_kind: .function(returnType: returnType, body: makeBody()), at: location)
+    }
 }
