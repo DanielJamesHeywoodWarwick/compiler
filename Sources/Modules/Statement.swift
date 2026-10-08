@@ -3,7 +3,7 @@ import Tokens
 public struct Statement: Hashable, Sendable {
     
     public enum Kind: Hashable, Sendable {
-        case `return`
+        case `return`(Expression?)
     }
     
     public let kind: Kind
