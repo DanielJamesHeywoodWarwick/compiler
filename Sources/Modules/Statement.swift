@@ -40,7 +40,6 @@ extension Statement: CustomDebugStringConvertible {
     public var debugDescription: String { "Modules.Statement.\(self)" }
 }
 
-
 extension Statement.Kind: CustomStringConvertible {
     
     @inlinable
@@ -57,4 +56,3 @@ extension Statement.Kind: CustomDebugStringConvertible {
     @inlinable
     public var debugDescription: String { "Modules.Statement.Kind.\(self)" }
 }
-
