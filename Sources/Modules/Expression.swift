@@ -15,4 +15,9 @@ public struct Expression: Hashable, Sendable {
         kind = _kind
         self.location = location
     }
+    
+    @inlinable
+    public static func integerLiteral(_ literal: IntegerLiteral, at location: SourceLocation) -> Expression {
+        Expression(_kind: .integerLiteral(literal), at: location)
+    }
 }
