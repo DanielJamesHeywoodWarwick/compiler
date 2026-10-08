@@ -1,3 +1,0 @@
-public external function main() -> Integer32 {
-    return 0
-}
