@@ -21,3 +21,39 @@ public struct `Type`: Hashable, Sendable {
         Type(_kind: .identifier(name), at: location)
     }
 }
+
+extension `Type`: CustomStringConvertible {
+    
+    @inlinable
+    public var description: String {
+        let locationDescription = "atLine: \(location.line), column: \(location.column)"
+        return switch kind {
+        case let .identifier(name):
+            "identifier(\"\(name)\", \(locationDescription))"
+        }
+    }
+}
+
+extension `Type`: CustomDebugStringConvertible {
+    
+    @inlinable
+    public var debugDescription: String { "Modules.Type.\(self)" }
+}
+
+
+extension `Type`.Kind: CustomStringConvertible {
+    
+    @inlinable
+    public var description: String {
+        switch self {
+        case let .identifier(name):
+            "identifier(\"\(name)\")"
+        }
+    }
+}
+
+extension `Type`.Kind: CustomDebugStringConvertible {
+    
+    @inlinable
+    public var debugDescription: String { "Modules.Type.Kind.\(self)" }
+}
