@@ -3,7 +3,7 @@ import Tokens
 public struct Declaration: Hashable, Sendable {
     
     public enum Kind: Hashable, Sendable {
-        case function(returnType: `Type`?, body: [Statement]?)
+        case function(returnType: `Type`, body: [Statement]?)
     }
     
     public enum AccessLevel: Hashable, Sendable {
@@ -34,7 +34,7 @@ public struct Declaration: Hashable, Sendable {
         _ name: Identifier,
         accessLevel: AccessLevel? = nil,
         isExternal: Bool = false,
-        returnType: `Type`? = nil,
+        returnType: `Type` = .identifier("Void"),
         at location: SourceLocation,
         @ArrayBuilder<Statement> makeBody: () -> [Statement]
     ) -> Declaration {
