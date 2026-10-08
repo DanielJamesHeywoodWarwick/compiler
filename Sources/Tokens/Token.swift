@@ -22,79 +22,79 @@ public struct Token: Hashable, Sendable {
     public let location: SourceLocation
     
     @inlinable
-    internal init(_kind: Kind, atLine lineNumber: Int, column columnNumber: Int) {
+    internal init(_kind: Kind, at location: SourceLocation) {
         kind = _kind
-        location = SourceLocation(line: lineNumber, column: columnNumber)
+        self.location = location
     }
     
     @inlinable
-    public static func identifier(_ text: Substring, atLine lineNumber: Int, column columnNumber: Int) -> Token {
-        Token(_kind: .identifier(Identifier(text)), atLine: lineNumber, column: columnNumber)
+    public static func identifier(_ text: Substring, at location: SourceLocation) -> Token {
+        Token(_kind: .identifier(Identifier(text)), at: location)
     }
     
     @inlinable
-    public static func externalKeyword(atLine lineNumber: Int, column columnNumber: Int) -> Token {
-        Token(_kind: .externalKeyword, atLine: lineNumber, column: columnNumber)
+    public static func externalKeyword(at location: SourceLocation) -> Token {
+        Token(_kind: .externalKeyword, at: location)
     }
     
     @inlinable
-    public static func functionKeyword(atLine lineNumber: Int, column columnNumber: Int) -> Token {
-        Token(_kind: .functionKeyword, atLine: lineNumber, column: columnNumber)
+    public static func functionKeyword(at location: SourceLocation) -> Token {
+        Token(_kind: .functionKeyword, at: location)
     }
     
     @inlinable
-    public static func publicKeyword(atLine lineNumber: Int, column columnNumber: Int) -> Token {
-        Token(_kind: .publicKeyword, atLine: lineNumber, column: columnNumber)
+    public static func publicKeyword(at location: SourceLocation) -> Token {
+        Token(_kind: .publicKeyword, at: location)
     }
     
     @inlinable
-    public static func privateKeyword(atLine lineNumber: Int, column columnNumber: Int) -> Token {
-        Token(_kind: .privateKeyword, atLine: lineNumber, column: columnNumber)
+    public static func privateKeyword(at location: SourceLocation) -> Token {
+        Token(_kind: .privateKeyword, at: location)
     }
     
     @inlinable
-    public static func returnKeyword(atLine lineNumber: Int, column columnNumber: Int) -> Token {
-        Token(_kind: .returnKeyword, atLine: lineNumber, column: columnNumber)
+    public static func returnKeyword(at location: SourceLocation) -> Token {
+        Token(_kind: .returnKeyword, at: location)
     }
     
     @inlinable
-    public static func integerLiteral(_ text: Substring, atLine lineNumber: Int, column columnNumber: Int) -> Token {
-        Token(_kind: .integerLiteral(IntegerLiteral(text)), atLine: lineNumber, column: columnNumber)
+    public static func integerLiteral(_ text: Substring, at location: SourceLocation) -> Token {
+        Token(_kind: .integerLiteral(IntegerLiteral(text)), at: location)
     }
     
     @inlinable
-    public static func openingParenthesis(atLine lineNumber: Int, column columnNumber: Int) -> Token {
-        Token(_kind: .openingParenthesis, atLine: lineNumber, column: columnNumber)
+    public static func openingParenthesis(at location: SourceLocation) -> Token {
+        Token(_kind: .openingParenthesis, at: location)
     }
     
     @inlinable
-    public static func closingParenthesis(atLine lineNumber: Int, column columnNumber: Int) -> Token {
-        Token(_kind: .closingParenthesis, atLine: lineNumber, column: columnNumber)
+    public static func closingParenthesis(at location: SourceLocation) -> Token {
+        Token(_kind: .closingParenthesis, at: location)
     }
     
     @inlinable
-    public static func openingAngleBracket(atLine lineNumber: Int, column columnNumber: Int) -> Token {
-        Token(_kind: .openingAngleBracket, atLine: lineNumber, column: columnNumber)
+    public static func openingAngleBracket(at location: SourceLocation) -> Token {
+        Token(_kind: .openingAngleBracket, at: location)
     }
     
     @inlinable
-    public static func closingAngleBracket(atLine lineNumber: Int, column columnNumber: Int) -> Token {
-        Token(_kind: .closingAngleBracket, atLine: lineNumber, column: columnNumber)
+    public static func closingAngleBracket(at location: SourceLocation) -> Token {
+        Token(_kind: .closingAngleBracket, at: location)
     }
     
     @inlinable
-    public static func openingBrace(atLine lineNumber: Int, column columnNumber: Int) -> Token {
-        Token(_kind: .openingBrace, atLine: lineNumber, column: columnNumber)
+    public static func openingBrace(at location: SourceLocation) -> Token {
+        Token(_kind: .openingBrace, at: location)
     }
     
     @inlinable
-    public static func closingBrace(atLine lineNumber: Int, column columnNumber: Int) -> Token {
-        Token(_kind: .closingBrace, atLine: lineNumber, column: columnNumber)
+    public static func closingBrace(at location: SourceLocation) -> Token {
+        Token(_kind: .closingBrace, at: location)
     }
     
     @inlinable
-    public static func arrow(atLine lineNumber: Int, column columnNumber: Int) -> Token {
-        Token(_kind: .arrow, atLine: lineNumber, column: columnNumber)
+    public static func arrow(at location: SourceLocation) -> Token {
+        Token(_kind: .arrow, at: location)
     }
 }
 

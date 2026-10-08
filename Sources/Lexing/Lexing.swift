@@ -10,44 +10,47 @@ public func tokens(for text: String) throws(LexingError) -> [Token] {
                 unlexedText = unlexedText.trimmingPrefix(while: \.isWhitespace)
             } else {
                 let token: Token
-                let columnNumber = line.distance(from: line.startIndex, to: unlexedText.startIndex) + 1
+                let location = SourceLocation(
+                    line: lineNumber,
+                    column: line.distance(from: line.startIndex, to: unlexedText.startIndex) + 1
+                )
                 if let match = unlexedText.prefixMatch(of: /[a-zA-Z_][a-zA-Z_0-9]*/) {
                     token = switch match.output {
                     case "external":
-                        .externalKeyword(atLine: lineNumber, column: columnNumber)
+                        .externalKeyword(at: location)
                     case "function":
-                        .functionKeyword(atLine: lineNumber, column: columnNumber)
+                        .functionKeyword(at: location)
                     case "private":
-                        .privateKeyword(atLine: lineNumber, column: columnNumber)
+                        .privateKeyword(at: location)
                     case "public":
-                        .publicKeyword(atLine: lineNumber, column: columnNumber)
+                        .publicKeyword(at: location)
                     case "return":
-                        .returnKeyword(atLine: lineNumber, column: columnNumber)
+                        .returnKeyword(at: location)
                     default:
-                        .identifier(match.output, atLine: lineNumber, column: columnNumber)
+                        .identifier(match.output, at: location)
                     }
                 } else if let match = unlexedText.prefixMatch(
                     of: /0b[01][01_]*|0o[0-7][0-7_]*|0x[0-9a-fA-F][0-9a-fA-F_]*|[0-9][0-9_]*/
                 ) {
-                    token = .integerLiteral(match.output, atLine: lineNumber, column: columnNumber)
+                    token = .integerLiteral(match.output, at: location)
                 } else {
                     token = switch character {
                     case "(":
-                        .openingParenthesis(atLine: lineNumber, column: columnNumber)
+                        .openingParenthesis(at: location)
                     case ")":
-                        .closingParenthesis(atLine: lineNumber, column: columnNumber)
+                        .closingParenthesis(at: location)
                     case "<":
-                        .openingAngleBracket(atLine: lineNumber, column: columnNumber)
+                        .openingAngleBracket(at: location)
                     case ">":
-                        .closingAngleBracket(atLine: lineNumber, column: columnNumber)
+                        .closingAngleBracket(at: location)
                     case "{":
-                        .openingBrace(atLine: lineNumber, column: columnNumber)
+                        .openingBrace(at: location)
                     case "}":
-                        .closingBrace(atLine: lineNumber, column: columnNumber)
+                        .closingBrace(at: location)
                     case "-" where unlexedText.hasPrefix("->"):
-                        .arrow(atLine: lineNumber, column: columnNumber)
+                        .arrow(at: location)
                     default:
-                        throw .unexpectedCharacter(character, atLine: lineNumber, column: columnNumber)
+                        throw .unexpectedCharacter(character, at: location)
                     }
                 }
                 unlexedText = unlexedText.trimmingPrefix(token.description)

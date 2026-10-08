@@ -11,17 +11,14 @@ public struct LexingError: Hashable, Error {
     public let location: SourceLocation
     
     @inlinable
-    internal init(_kind: Kind, atLine lineNumber: Int, column columnNumber: Int) {
+    internal init(_kind: Kind, at location: SourceLocation) {
         kind = _kind
-        self.location = SourceLocation(line: lineNumber, column: columnNumber)
+        self.location = location
     }
     
     @inlinable
-    public static func unexpectedCharacter(
-        _ character: Character,
-        atLine lineNumber: Int, column columnNumber: Int
-    ) -> LexingError {
-        LexingError(_kind: .unexpectedCharacter(character), atLine: lineNumber, column: columnNumber)
+    public static func unexpectedCharacter(_ character: Character, at location: SourceLocation) -> LexingError {
+        LexingError(_kind: .unexpectedCharacter(character), at: location)
     }
 }
 
