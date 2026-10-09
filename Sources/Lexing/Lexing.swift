@@ -4,16 +4,15 @@ import Tokens
 public func tokens(for text: String) throws(LexingError) -> [Token] {
     var tokens = [] as [Token]
     for (lineNumber, line) in zip(1..., text.split(omittingEmptySubsequences: false, whereSeparator: \.isNewline)) {
+        var columnNumber = 1
         var unlexedText = line.prefix(upTo: line.firstRange(of: "//")?.lowerBound ?? line.endIndex)
         while let character = unlexedText.first {
             if character.isWhitespace {
-                unlexedText = unlexedText.trimmingPrefix(while: \.isWhitespace)
+                columnNumber += 1
+                unlexedText = unlexedText.dropFirst()
             } else {
                 let token: Token
-                let location = SourceLocation(
-                    line: lineNumber,
-                    column: line.distance(from: line.startIndex, to: unlexedText.startIndex) + 1
-                )
+                let location = SourceLocation(line: lineNumber, column: columnNumber)
                 if let match = unlexedText.prefixMatch(of: /[a-zA-Z_][a-zA-Z_0-9]*/) {
                     token = switch match.output {
                     case "external":
@@ -47,6 +46,7 @@ public func tokens(for text: String) throws(LexingError) -> [Token] {
                         throw .unexpectedCharacter(character, at: location)
                     }
                 }
+                columnNumber += token.description.count
                 unlexedText = unlexedText.trimmingPrefix(token.description)
                 tokens.append(token)
             }
