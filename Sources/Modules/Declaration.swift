@@ -32,11 +32,11 @@ public struct Declaration: Hashable, Sendable {
     @inlinable
     public static func function(
         _ name: Identifier,
-        accessLevel: AccessLevel? = nil,
-        isExternal: Bool = false,
-        returnType: `Type`? = nil,
-        at location: SourceLocation,
-        @ArrayBuilder<Statement> makeBody: () -> [Statement]
+        accessLevel: AccessLevel?,
+        isExternal: Bool,
+        returnType: `Type`?,
+        body: [Statement],
+        at location: SourceLocation
     ) -> Declaration {
         Declaration(
             _kind: .function(returnType: returnType, body: makeBody()),
