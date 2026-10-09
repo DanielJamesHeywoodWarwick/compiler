@@ -72,30 +72,24 @@ struct CompilerCommand: ParsableCommand {
                 print("Tokens for '\(path)':")
                 for token in tokens {
                     let kindDescription = switch token.kind {
-                    case let .identifier(identifier):
-                        "Identifier '\(identifier)'"
-                    case .externalKeyword:
-                        "Keyword 'external'"
-                    case .functionKeyword:
-                        "Keyword 'function'"
-                    case .publicKeyword:
-                        "Keyword 'public'"
-                    case .returnKeyword:
-                        "Keyword 'return'"
-                    case let .integerLiteral(literal):
-                        "Integer literal '\(literal)'"
+                    case .identifier:
+                        "Identifier"
+                    case .externalKeyword, .functionKeyword, .publicKeyword, .returnKeyword:
+                        "Keyword"
+                    case .integerLiteral:
+                        "Integer literal"
                     case .openingParenthesis:
-                        "Opening parenthesis '('"
+                        "Opening parenthesis"
                     case .closingParenthesis:
-                        "Closing parenthesis ')'"
+                        "Closing parenthesis"
                     case .openingBrace:
-                        "Opening brace '{'"
+                        "Opening brace"
                     case .closingBrace:
-                        "Closing brace '}'"
+                        "Closing brace"
                     case .arrow:
-                        "Arrow '->'"
+                        "Arrow"
                     }
-                    print("  \(kindDescription) at line \(token.location.line), column \(token.location.column)")
+                    print("  \(kindDescription) '\(token)' at line \(token.location.line), column \(token.location.column)")
                 }
                 print()
             }
