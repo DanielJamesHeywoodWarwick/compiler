@@ -22,6 +22,7 @@ let package = Package(
         ),
         .target(name: "Lexing", dependencies: ["Tokens"]),
         .target(name: "Modules", dependencies: ["Tokens"]),
+        .target(name: "Parsing", dependencies: ["Modules", "Tokens"]),
         .target(name: "Tokens")
     ]
 )
