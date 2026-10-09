@@ -47,38 +47,3 @@ public struct Declaration: Hashable, Sendable {
         )
     }
 }
-
-extension Declaration: CustomStringConvertible {
-    
-    @inlinable
-    public var description: String {
-        let locationDescription = "atLine: \(location.line), column: \(location.column)"
-        return switch kind {
-        case let .function(returnType, body):
-            "function(\"\(name)\", accessLevel: \(accessLevel.map { level in "\(level)" } ?? "nil"), isExternal: \(isExternal), returnType: \(returnType?.description ?? "nil"), body: \(body.map { body in "[\(body.map(\.description).joined(separator: ", "))]" } ?? nil), \(locationDescription))"
-        }
-    }
-}
-
-extension Declaration: CustomDebugStringConvertible {
-    
-    @inlinable
-    public var debugDescription: String { "Modules.Declaration.\(self)" }
-}
-
-extension Declaration.Kind: CustomStringConvertible {
-    
-    @inlinable
-    public var description: String {
-        switch self {
-        case let .function(returnType, body):
-            "function(returnType: \(returnType?.description ?? "nil"), body: \(body.map { body in "[\(body.map(\.description).joined(separator: ", "))]" } ?? "nil"))"
-        }
-    }
-}
-
-extension Declaration.Kind: CustomDebugStringConvertible {
-    
-    @inlinable
-    public var debugDescription: String { "Modules.Declaration.Kind.\(self)" }
-}

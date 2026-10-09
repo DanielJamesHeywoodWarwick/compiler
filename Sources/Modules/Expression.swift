@@ -21,38 +21,3 @@ public struct Expression: Hashable, Sendable {
         Expression(_kind: .integerLiteral(literal), at: location)
     }
 }
-
-extension Expression: CustomStringConvertible {
-    
-    @inlinable
-    public var description: String {
-        let locationDescription = "atLine: \(location.line), column: \(location.column)"
-        return switch kind {
-        case let .integerLiteral(literal):
-            "integerLiteral(\"\(literal)\", \(locationDescription))"
-        }
-    }
-}
-
-extension Expression: CustomDebugStringConvertible {
-    
-    @inlinable
-    public var debugDescription: String { "Modules.Expression.\(self)" }
-}
-
-extension Expression.Kind: CustomStringConvertible {
-    
-    @inlinable
-    public var description: String {
-        switch self {
-        case let .integerLiteral(literal):
-            "integerLiteral(\"\(literal)\")"
-        }
-    }
-}
-
-extension Expression.Kind: CustomDebugStringConvertible {
-    
-    @inlinable
-    public var debugDescription: String { "Modules.Expression.Kind.\(self)" }
-}

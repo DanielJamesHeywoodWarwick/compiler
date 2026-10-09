@@ -90,32 +90,7 @@ extension Token: CustomDebugStringConvertible {
     
     @inlinable
     public var debugDescription: String {
-        let locationDescription = "atLine: \(location.line), column: \(location.column)"
-        let description = switch kind {
-        case let .identifier(identifier):
-            "identifier(\"\(identifier)\", \(locationDescription))"
-        case .externalKeyword:
-            "externalKeyword(\(locationDescription))"
-        case .functionKeyword:
-            "functionKeyword(\(locationDescription))"
-        case .publicKeyword:
-            "publicKeyword(\(locationDescription))"
-        case .returnKeyword:
-            "returnKeyword(\(locationDescription))"
-        case let .integerLiteral(literal):
-            "integerLiteral(\"\(literal)\", \(locationDescription))"
-        case .openingParenthesis:
-            "openingParenthesis(\(locationDescription))"
-        case .closingParenthesis:
-            "closingParenthesis(\(locationDescription))"
-        case .openingBrace:
-            "openingBrace(\(locationDescription))"
-        case .closingBrace:
-            "closingBrace(\(locationDescription))"
-        case .arrow:
-            "arrow(\(locationDescription))"
-        }
-        return "Tokens.Token.\(description)"
+        "Tokens.Token(kind: \(kind.debugDescription), location: \(String(reflecting: location)))"
     }
 }
 
@@ -156,7 +131,7 @@ extension Token.Kind: CustomDebugStringConvertible {
     public var debugDescription: String {
         let description = switch self {
         case let .identifier(identifier):
-            "identifier(\"\(identifier)\")"
+            "identifier(\(identifier.debugDescription))"
         case .externalKeyword:
             "externalKeyword"
         case .functionKeyword:
@@ -166,7 +141,7 @@ extension Token.Kind: CustomDebugStringConvertible {
         case .returnKeyword:
             "returnKeyword"
         case let .integerLiteral(literal):
-            "integerLiteral(\"\(literal)\")"
+            "integerLiteral(\(literal.debugDescription))"
         case .openingParenthesis:
             "openingParenthesis"
         case .closingParenthesis:

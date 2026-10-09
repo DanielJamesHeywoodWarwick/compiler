@@ -38,10 +38,9 @@ extension LexingError: CustomDebugStringConvertible {
     
     @inlinable
     public var debugDescription: String {
-        let locationDescription = "atLine: \(location.line), column: \(location.column)"
         let description = switch kind {
         case let .unexpectedCharacter(character):
-            "unexpectedCharacter(\(character.debugDescription), \(locationDescription))"
+            "unexpectedCharacter(\(character.debugDescription), \(String(reflecting: location)))"
         }
         return "Lexing.LexingError.\(description)"
     }
