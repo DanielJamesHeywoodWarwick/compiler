@@ -29,7 +29,7 @@ extension Statement: CustomStringConvertible {
         let locationDescription = "atLine: \(location.line), column: \(location.column)"
         return switch kind {
         case let .return(expression):
-            "return(\(expression.map { expression in "\(expression), " } ?? "")\(locationDescription))"
+            _description(of: "return", argumentDescriptions: expression?.description, locationDescription)
         }
     }
 }
@@ -46,7 +46,7 @@ extension Statement.Kind: CustomStringConvertible {
     public var description: String {
         switch self {
         case let .return(expression):
-            "return\(expression.map { expression in "(\(expression))" } ?? "")"
+            _description(of: "return", argumentDescriptions: expression?.description)
         }
     }
 }
