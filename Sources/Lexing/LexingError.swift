@@ -38,10 +38,6 @@ extension LexingError: CustomDebugStringConvertible {
     
     @inlinable
     public var debugDescription: String {
-        let description = switch kind {
-        case let .unexpectedCharacter(character):
-            "unexpectedCharacter(\(character.debugDescription), \(String(reflecting: location)))"
-        }
-        return "Lexing.LexingError.\(description)"
+        "Lexing.LexingError(kind: \(String(reflecting: kind)), location: \(String(reflecting: location)))"
     }
 }
