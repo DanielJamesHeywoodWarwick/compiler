@@ -29,7 +29,7 @@ extension `Type`: CustomStringConvertible {
         let locationDescription = "atLine: \(location.line), column: \(location.column)"
         return switch kind {
         case let .identifier(name):
-            "identifier(\"\(name)\", \(locationDescription))"
+            _description(of: "identifier", argumentDescriptions: "\"\(name)\"", locationDescription)
         }
     }
 }
@@ -47,7 +47,7 @@ extension `Type`.Kind: CustomStringConvertible {
     public var description: String {
         switch self {
         case let .identifier(name):
-            "identifier(\"\(name)\")"
+            _description(of: "identifier", argumentDescriptions: "\"\(name)\"")
         }
     }
 }
