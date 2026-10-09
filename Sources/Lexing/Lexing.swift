@@ -9,7 +9,7 @@ public func tokens(for text: String) throws(LexingError) -> [Token] {
         while let character = unlexedText.first {
             if character.isWhitespace {
                 columnNumber += 1
-                unlexedText = unlexedText.dropFirst()
+                unlexedText.removeFirst()
             } else {
                 let token: Token
                 let location = SourceLocation(line: lineNumber, column: columnNumber)
@@ -47,7 +47,7 @@ public func tokens(for text: String) throws(LexingError) -> [Token] {
                     }
                 }
                 columnNumber += token.description.count
-                unlexedText = unlexedText.trimmingPrefix(token.description)
+                unlexedText.trimPrefix(token.description)
                 tokens.append(token)
             }
         }
