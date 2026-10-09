@@ -35,11 +35,11 @@ public struct Declaration: Hashable, Sendable {
         accessLevel: AccessLevel?,
         isExternal: Bool,
         returnType: `Type`?,
-        body: [Statement],
+        body: [Statement]?,
         at location: SourceLocation
     ) -> Declaration {
         Declaration(
-            _kind: .function(returnType: returnType, body: makeBody()),
+            _kind: .function(returnType: returnType, body: body),
             name: name,
             accessLevel: accessLevel,
             isExternal: isExternal,
