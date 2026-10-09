@@ -29,7 +29,7 @@ extension Expression: CustomStringConvertible {
         let locationDescription = "atLine: \(location.line), column: \(location.column)"
         return switch kind {
         case let .integerLiteral(literal):
-            _description(of: "integerLiteral", argumentDescriptions: "\"\(literal)\"", locationDescription)
+            "integerLiteral(\"\(literal)\", \(locationDescription))"
         }
     }
 }
@@ -40,14 +40,13 @@ extension Expression: CustomDebugStringConvertible {
     public var debugDescription: String { "Modules.Expression.\(self)" }
 }
 
-
 extension Expression.Kind: CustomStringConvertible {
     
     @inlinable
     public var description: String {
         switch self {
         case let .integerLiteral(literal):
-            _description(of: "integerLiteral", argumentDescriptions: "\"\(literal)\"")
+            "integerLiteral(\"\(literal)\")"
         }
     }
 }

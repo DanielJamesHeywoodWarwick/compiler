@@ -29,7 +29,7 @@ extension Type: CustomStringConvertible {
         let locationDescription = "atLine: \(location.line), column: \(location.column)"
         return switch kind {
         case let .identifier(name):
-            _description(of: "identifier", argumentDescriptions: "\"\(name)\"", locationDescription)
+            "identifier(\"\(name)\", \(locationDescription))"
         }
     }
 }
@@ -40,14 +40,13 @@ extension Type: CustomDebugStringConvertible {
     public var debugDescription: String { "Modules.Type.\(self)" }
 }
 
-
 extension Type.Kind: CustomStringConvertible {
     
     @inlinable
     public var description: String {
         switch self {
         case let .identifier(name):
-            _description(of: "identifier", argumentDescriptions: "\"\(name)\"")
+            "identifier(\"\(name)\")"
         }
     }
 }
