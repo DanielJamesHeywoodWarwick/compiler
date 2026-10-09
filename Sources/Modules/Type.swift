@@ -1,6 +1,6 @@
 import Tokens
 
-public struct `Type`: Hashable, Sendable {
+public struct Type: Hashable, Sendable {
     
     public enum Kind: Hashable, Sendable {
         case identifier(Identifier)
@@ -17,12 +17,12 @@ public struct `Type`: Hashable, Sendable {
     }
     
     @inlinable
-    public static func identifier(_ name: Identifier, at location: SourceLocation) -> `Type` {
+    public static func identifier(_ name: Identifier, at location: SourceLocation) -> Type {
         Type(_kind: .identifier(name), at: location)
     }
 }
 
-extension `Type`: CustomStringConvertible {
+extension Type: CustomStringConvertible {
     
     @inlinable
     public var description: String {
@@ -34,14 +34,14 @@ extension `Type`: CustomStringConvertible {
     }
 }
 
-extension `Type`: CustomDebugStringConvertible {
+extension Type: CustomDebugStringConvertible {
     
     @inlinable
     public var debugDescription: String { "Modules.Type.\(self)" }
 }
 
 
-extension `Type`.Kind: CustomStringConvertible {
+extension Type.Kind: CustomStringConvertible {
     
     @inlinable
     public var description: String {
@@ -52,7 +52,7 @@ extension `Type`.Kind: CustomStringConvertible {
     }
 }
 
-extension `Type`.Kind: CustomDebugStringConvertible {
+extension Type.Kind: CustomDebugStringConvertible {
     
     @inlinable
     public var debugDescription: String { "Modules.Type.Kind.\(self)" }
