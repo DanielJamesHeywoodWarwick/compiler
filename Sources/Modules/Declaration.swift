@@ -55,15 +55,7 @@ extension Declaration: CustomStringConvertible {
         let locationDescription = "atLine: \(location.line), column: \(location.column)"
         return switch kind {
         case let .function(returnType, body):
-            _description(
-                of: "function",
-                argumentDescriptions: "\"\(name)\"",
-                accessLevel.map { level in "accessLevel: \(level)" },
-                isExternal ? "isExternal: true" : nil,
-                returnType.map { type in "returnType: \(type)" },
-                body.map { body in "body: [\(body.map(\.description).joined(separator: ", "))]" },
-                locationDescription
-            )
+            "function(\"\(name)\", accessLevel: \(accessLevel.map { level in "\(level)" } ?? "nil"), isExternal: \(isExternal), returnType: \(returnType?.description ?? "nil"), body: \(body.map { body in "[\(body.map(\.description).joined(separator: ", "))]" } ?? nil), \(locationDescription))"
         }
     }
 }
@@ -80,11 +72,7 @@ extension Declaration.Kind: CustomStringConvertible {
     public var description: String {
         switch self {
         case let .function(returnType, body):
-            _description(
-                of: "function",
-                argumentDescriptions: returnType.map { type in "returnType: \(type)" },
-                body.map { body in "body: [\(body.map(\.description).joined(separator: ", "))]" }
-            )
+            "function(returnType: \(returnType?.description ?? "nil"), body: \(body.map { body in "[\(body.map(\.description).joined(separator: ", "))]" } ?? "nil"))"
         }
     }
 }
