@@ -38,20 +38,19 @@ struct CompilerCommand: ParsableCommand {
                         do throws(UTF8.ValidationError) {
                             return String(copying: try UTF8Span(validating: buffer.span))
                         } catch {
-                            let message: String?
-                            switch error.kind {
+                            let message = switch error.kind {
                             case .invalidNonSurrogateCodePointByte:
-                                message = "Invalid non-surrogate code point byte"
+                                "Invalid non-surrogate code point byte"
                             case .overlongEncodingByte:
-                                message = "Overlong encoding byte"
+                                "Overlong encoding byte"
                             case .surrogateCodePointByte:
-                                message = "Surrogate code point byte"
+                                "Surrogate code point byte"
                             case .truncatedScalar:
-                                message = "Truncated scalar"
+                                "Truncated scalar"
                             case .unexpectedContinuationByte:
-                                message = "Unexpected continuation byte"
+                                "Unexpected continuation byte"
                             default:
-                                message = nil
+                                nil as String?
                             }
                             throw StringError("UTF-8 validation failed\(message.map { message in ": \(message)" } ?? "")")
                         }
