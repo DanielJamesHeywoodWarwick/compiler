@@ -8,12 +8,18 @@ public struct Type: Hashable, Sendable {
     
     public let kind: Kind
     
-    public let location: SourceLocation?
+    public let startLocation: SourceLocation?
+    
+    public let endLocation: SourceLocation?
     
     @inlinable
-    internal init(_kind: Kind, at location: SourceLocation?) {
+    internal init(_kind: Kind, at location: SourceLocation) {
         kind = _kind
-        self.location = location
+        startLocation = location
+        endLocation = switch kind {
+        case let .identifier(name):
+            SourceLocation(line: location.line, column: location.column + name.description.count)
+        }
     }
     
     @inlinable
