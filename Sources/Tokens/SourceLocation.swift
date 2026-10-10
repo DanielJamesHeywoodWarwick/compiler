@@ -16,5 +16,5 @@ public struct SourceLocation: Hashable, Sendable {
 extension SourceLocation: Comparable {
     
     @inlinable
-    public static func < (lhs: SourceLocation, rhs: SourceLocation) -> Bool { lhs.line < rhs.line && rhs.column < rhs.column }
+    public static func < (lhs: SourceLocation, rhs: SourceLocation) -> Bool { (lhs.line, lhs.column) < (rhs.line, rhs.column) }
 }
