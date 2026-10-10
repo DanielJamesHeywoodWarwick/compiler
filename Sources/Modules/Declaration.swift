@@ -3,7 +3,7 @@ import Tokens
 public struct Declaration: Hashable, Sendable {
     
     public enum Kind: Hashable, Sendable {
-        case function(returnType: Type?, body: [Statement]?)
+        case function(Identifier, accessLevel: AccessLevel?, isExternal: Bool, returnType: Type?, body: [Statement]?)
     }
     
     public enum AccessLevel: Hashable, Sendable {
@@ -12,20 +12,11 @@ public struct Declaration: Hashable, Sendable {
     
     public let kind: Kind
     
-    public let name: Identifier
-    
-    public let accessLevel: AccessLevel?
-    
-    public let isExternal: Bool
-    
     public let location: SourceLocation?
     
     @inlinable
-    internal init(_kind: Kind, name: Identifier, accessLevel: AccessLevel?, isExternal: Bool, at location: SourceLocation?) {
+    internal init(_kind: Kind, at location: SourceLocation?) {
         kind = _kind
-        self.name = name
-        self.accessLevel = accessLevel
-        self.isExternal = isExternal
         self.location = location
     }
     
@@ -39,10 +30,7 @@ public struct Declaration: Hashable, Sendable {
         at location: SourceLocation
     ) -> Declaration {
         Declaration(
-            _kind: .function(returnType: returnType, body: body),
-            name: name,
-            accessLevel: accessLevel,
-            isExternal: isExternal,
+            _kind: .function(name, accessLevel: accessLevel, isExternal: isExternal, returnType: returnType, body: body),
             at: location
         )
     }
