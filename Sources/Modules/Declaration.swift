@@ -18,10 +18,10 @@ public struct Declaration: Hashable, Sendable {
     
     public let isExternal: Bool
     
-    public let location: SourceLocation
+    public let location: SourceLocation?
     
     @inlinable
-    internal init(_kind: Kind, name: Identifier, accessLevel: AccessLevel?, isExternal: Bool, at location: SourceLocation) {
+    internal init(_kind: Kind, name: Identifier, accessLevel: AccessLevel?, isExternal: Bool, at location: SourceLocation?) {
         kind = _kind
         self.name = name
         self.accessLevel = accessLevel
