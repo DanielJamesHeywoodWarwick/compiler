@@ -2,12 +2,12 @@ import Tokens
 
 public struct Declaration: Hashable, Sendable {
     
-    public enum Kind: Hashable, Sendable {
-        case function(Identifier, accessLevel: AccessLevel?, isExternal: Bool, returnType: Type?, body: [Statement]?)
-    }
-    
     public enum AccessLevel: Hashable, Sendable {
         case `public`
+    }
+    
+    public enum Kind: Hashable, Sendable {
+        case function(Identifier, accessLevel: AccessLevel?, isExternal: Bool, returnType: Type?, body: [Statement]?)
     }
     
     public let kind: Kind
