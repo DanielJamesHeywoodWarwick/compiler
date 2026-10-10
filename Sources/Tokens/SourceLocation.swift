@@ -12,3 +12,9 @@ public struct SourceLocation: Hashable, Sendable {
         self.column = column
     }
 }
+
+extension SourceLocation: Comparable {
+    
+    @inlinable
+    public static func < (lhs: SourceLocation, rhs: SourceLocation) -> Bool { lhs.line < rhs.line && rhs.column < rhs.column }
+}
