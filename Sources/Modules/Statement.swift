@@ -16,9 +16,16 @@ public struct Statement: Hashable, Sendable {
     internal init(_kind: Kind, at location: SourceLocation) {
         kind = _kind
         startLocation = location
-        endLocation = switch kind {
+        switch kind {
         case let .return(expression):
-            expression?.endLocation ?? SourceLocation(line: location.line, column: location.column + 6)
+            if let expression {
+                guard let endLocation = expression.endLocation else {
+                    preconditionFailure()
+                }
+                self.endLocation = endLocation
+            } else {
+                endLocation = SourceLocation(line: location.line, column: location.column + 6)
+            }
         }
     }
     
