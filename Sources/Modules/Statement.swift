@@ -19,7 +19,7 @@ public struct Statement: Hashable, Sendable {
         switch kind {
         case let .return(expression):
             if let expression {
-                guard let endLocation = expression.endLocation else {
+                guard let endLocation = expression.sourceRange?.upperBound else {
                     preconditionFailure()
                 }
                 self.endLocation = endLocation
