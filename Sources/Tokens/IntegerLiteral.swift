@@ -6,7 +6,7 @@ public struct IntegerLiteral: Hashable, Sendable {
     @inlinable
     public init(_ text: String) {
         precondition(
-            text.wholeMatch(of: /0b[01][01_]*|0o[0-7][0-7_]*|0x[0-9a-fA-F][0-9a-fA-F_]*|[0-9][0-9_]*/) != nil,
+            text.wholeMatch(of: /-?(?:0b[01][01_]*|0o[0-7][0-7_]*|0x[0-9a-fA-F][0-9a-fA-F_]*|[0-9][0-9_]*)/) != nil,
             "Expected an integer literal, but got \(text.debugDescription)"
         )
         _text = text

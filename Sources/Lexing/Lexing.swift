@@ -27,7 +27,7 @@ public func tokens(for text: String) throws(LexingError) -> [Token] {
                         .identifier(match.output, at: location)
                     }
                 } else if let match = unlexedText.prefixMatch(
-                    of: /0b[01][01_]*|0o[0-7][0-7_]*|0x[0-9a-fA-F][0-9a-fA-F_]*|[0-9][0-9_]*/
+                    of: /-?(?:0b[01][01_]*|0o[0-7][0-7_]*|0x[0-9a-fA-F][0-9a-fA-F_]*|[0-9][0-9_]*)/
                 ) {
                     token = .integerLiteral(match.output, at: location)
                 } else {
