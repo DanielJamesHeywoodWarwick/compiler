@@ -8,25 +8,24 @@ public struct Statement: Hashable, Sendable {
     
     public let kind: Kind
     
-    public let startLocation: SourceLocation?
-    
-    public let endLocation: SourceLocation?
+    public let sourceRange: Range<SourceLocation>?
     
     @inlinable
     internal init(_kind: Kind, at location: SourceLocation) {
         kind = _kind
-        startLocation = location
+        let endLocation: SourceLocation
         switch kind {
         case let .return(expression):
             if let expression {
-                guard let endLocation = expression.sourceRange?.upperBound else {
+                guard let expressionSourceRange = expression.sourceRange else {
                     preconditionFailure()
                 }
-                self.endLocation = endLocation
+                endLocation = expressionSourceRange.upperBound
             } else {
                 endLocation = SourceLocation(line: location.line, column: location.column + 6)
             }
         }
+        sourceRange = Range(uncheckedBounds: (location, endLocation))
     }
     
     @inlinable
