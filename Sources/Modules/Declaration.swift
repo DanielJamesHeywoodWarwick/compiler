@@ -15,7 +15,7 @@ public struct Declaration: Hashable, Sendable {
     public let location: SourceLocation?
     
     @inlinable
-    internal init(_kind: Kind, at location: SourceLocation?) {
+    internal init(_kind: Kind, at location: SourceLocation) {
         kind = _kind
         self.location = location
     }

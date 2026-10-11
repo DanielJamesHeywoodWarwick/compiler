@@ -8,16 +8,12 @@ public struct Expression: Hashable, Sendable {
     
     public let kind: Kind
     
-    public let sourceRange: Range<SourceLocation>?
+    public let location: SourceLocation?
     
     @inlinable
     internal init(_kind: Kind, at location: SourceLocation) {
         kind = _kind
-        let endLocation = switch kind {
-        case let .integerLiteral(literal):
-            SourceLocation(line: location.line, column: location.column + literal.description.count)
-        }
-        sourceRange = Range(uncheckedBounds: (location, endLocation))
+        self.location = location
     }
     
     @inlinable
