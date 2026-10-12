@@ -7,7 +7,7 @@ public struct Declaration: Hashable, Sendable {
     }
     
     public enum Kind: Hashable, Sendable {
-        case function(Identifier, accessLevel: AccessLevel?, isExternal: Bool, returnType: Type?, body: [Statement]?)
+        case function(Identifier, accessLevel: AccessLevel, isExternal: Bool, returnType: Type, body: [Statement]?)
     }
     
     public let kind: Kind
@@ -23,9 +23,9 @@ public struct Declaration: Hashable, Sendable {
     @inlinable
     public static func function(
         _ name: Identifier,
-        accessLevel: AccessLevel?,
+        accessLevel: AccessLevel,
         isExternal: Bool,
-        returnType: Type?,
+        returnType: Type,
         body: [Statement]?,
         at location: SourceLocation
     ) -> Declaration {
