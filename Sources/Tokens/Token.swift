@@ -16,67 +16,70 @@ public struct Token: Hashable, Sendable {
     
     public let kind: Kind
     
+    public let isAtStartOfLine: Bool
+    
     public let location: SourceLocation
     
     @inlinable
-    internal init(_kind: Kind, at location: SourceLocation) {
+    internal init(_kind: Kind, isAtStartOfLine: Bool, at location: SourceLocation) {
         kind = _kind
+        self.isAtStartOfLine = isAtStartOfLine
         self.location = location
     }
     
     @inlinable
-    public static func identifier(_ text: Substring, at location: SourceLocation) -> Token {
-        Token(_kind: .identifier(Identifier(text)), at: location)
+    public static func identifier(_ text: Substring, isAtStartOfLine: Bool, at location: SourceLocation) -> Token {
+        Token(_kind: .identifier(Identifier(text)), isAtStartOfLine: isAtStartOfLine, at: location)
     }
     
     @inlinable
-    public static func externalKeyword(at location: SourceLocation) -> Token {
-        Token(_kind: .externalKeyword, at: location)
+    public static func externalKeyword(isAtStartOfLine: Bool, at location: SourceLocation) -> Token {
+        Token(_kind: .externalKeyword, isAtStartOfLine: isAtStartOfLine, at: location)
     }
     
     @inlinable
-    public static func functionKeyword(at location: SourceLocation) -> Token {
-        Token(_kind: .functionKeyword, at: location)
+    public static func functionKeyword(isAtStartOfLine: Bool, at location: SourceLocation) -> Token {
+        Token(_kind: .functionKeyword, isAtStartOfLine: isAtStartOfLine, at: location)
     }
     
     @inlinable
-    public static func publicKeyword(at location: SourceLocation) -> Token {
-        Token(_kind: .publicKeyword, at: location)
+    public static func publicKeyword(isAtStartOfLine: Bool, at location: SourceLocation) -> Token {
+        Token(_kind: .publicKeyword, isAtStartOfLine: isAtStartOfLine, at: location)
     }
     
     @inlinable
-    public static func returnKeyword(at location: SourceLocation) -> Token {
-        Token(_kind: .returnKeyword, at: location)
+    public static func returnKeyword(isAtStartOfLine: Bool, at location: SourceLocation) -> Token {
+        Token(_kind: .returnKeyword, isAtStartOfLine: isAtStartOfLine, at: location)
     }
     
     @inlinable
-    public static func integerLiteral(_ text: Substring, at location: SourceLocation) -> Token {
-        Token(_kind: .integerLiteral(IntegerLiteral(text)), at: location)
+    public static func integerLiteral(_ text: Substring, isAtStartOfLine: Bool, at location: SourceLocation) -> Token {
+        Token(_kind: .integerLiteral(IntegerLiteral(text)), isAtStartOfLine: isAtStartOfLine, at: location)
     }
     
     @inlinable
-    public static func openingParenthesis(at location: SourceLocation) -> Token {
-        Token(_kind: .openingParenthesis, at: location)
+    public static func openingParenthesis(isAtStartOfLine: Bool, at location: SourceLocation) -> Token {
+        Token(_kind: .openingParenthesis, isAtStartOfLine: isAtStartOfLine, at: location)
     }
     
     @inlinable
-    public static func closingParenthesis(at location: SourceLocation) -> Token {
-        Token(_kind: .closingParenthesis, at: location)
+    public static func closingParenthesis(isAtStartOfLine: Bool, at location: SourceLocation) -> Token {
+        Token(_kind: .closingParenthesis, isAtStartOfLine: isAtStartOfLine, at: location)
     }
     
     @inlinable
-    public static func openingBrace(at location: SourceLocation) -> Token {
-        Token(_kind: .openingBrace, at: location)
+    public static func openingBrace(isAtStartOfLine: Bool, at location: SourceLocation) -> Token {
+        Token(_kind: .openingBrace, isAtStartOfLine: isAtStartOfLine, at: location)
     }
     
     @inlinable
-    public static func closingBrace(at location: SourceLocation) -> Token {
-        Token(_kind: .closingBrace, at: location)
+    public static func closingBrace(isAtStartOfLine: Bool, at location: SourceLocation) -> Token {
+        Token(_kind: .closingBrace, isAtStartOfLine: isAtStartOfLine, at: location)
     }
     
     @inlinable
-    public static func arrow(at location: SourceLocation) -> Token {
-        Token(_kind: .arrow, at: location)
+    public static func arrow(isAtStartOfLine: Bool, at location: SourceLocation) -> Token {
+        Token(_kind: .arrow, isAtStartOfLine: isAtStartOfLine, at: location)
     }
 }
 
@@ -90,7 +93,7 @@ extension Token: CustomDebugStringConvertible {
     
     @inlinable
     public var debugDescription: String {
-        "Tokens.Token(kind: \(kind.debugDescription), location: \(String(reflecting: location)))"
+        "Tokens.Token(kind: \(kind.debugDescription), isAtStartOfLine: \(isAtStartOfLine), location: \(String(reflecting: location)))"
     }
 }
 

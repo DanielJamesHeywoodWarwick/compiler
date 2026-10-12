@@ -12,36 +12,37 @@ public func tokens(for text: String) throws(LexingError) -> [Token] {
                 unlexedText.removeFirst()
             } else {
                 let token: Token
+                let isAtStartOfLine = tokens.last.map { token in lineNumber > token.location.line } ?? true
                 let location = SourceLocation(line: lineNumber, column: columnNumber)
                 if let match = unlexedText.prefixMatch(of: /[a-zA-Z_][a-zA-Z_0-9]*/) {
                     token = switch match.output {
                     case "external":
-                        .externalKeyword(at: location)
+                        .externalKeyword(isAtStartOfLine: isAtStartOfLine, at: location)
                     case "function":
-                        .functionKeyword(at: location)
+                        .functionKeyword(isAtStartOfLine: isAtStartOfLine, at: location)
                     case "public":
-                        .publicKeyword(at: location)
+                        .publicKeyword(isAtStartOfLine: isAtStartOfLine, at: location)
                     case "return":
-                        .returnKeyword(at: location)
+                        .returnKeyword(isAtStartOfLine: isAtStartOfLine, at: location)
                     default:
-                        .identifier(match.output, at: location)
+                        .identifier(match.output, isAtStartOfLine: isAtStartOfLine, at: location)
                     }
                 } else if let match = unlexedText.prefixMatch(
                     of: /-?(?:0b[01][01_]*|0o[0-7][0-7_]*|0x[0-9a-fA-F][0-9a-fA-F_]*|[0-9][0-9_]*)/
                 ) {
-                    token = .integerLiteral(match.output, at: location)
+                    token = .integerLiteral(match.output, isAtStartOfLine: isAtStartOfLine, at: location)
                 } else {
                     token = switch character {
                     case "(":
-                        .openingParenthesis(at: location)
+                        .openingParenthesis(isAtStartOfLine: isAtStartOfLine, at: location)
                     case ")":
-                        .closingParenthesis(at: location)
+                        .closingParenthesis(isAtStartOfLine: isAtStartOfLine, at: location)
                     case "{":
-                        .openingBrace(at: location)
+                        .openingBrace(isAtStartOfLine: isAtStartOfLine, at: location)
                     case "}":
-                        .closingBrace(at: location)
+                        .closingBrace(isAtStartOfLine: isAtStartOfLine, at: location)
                     case "-" where unlexedText.hasPrefix("->"):
-                        .arrow(at: location)
+                        .arrow(isAtStartOfLine: isAtStartOfLine, at: location)
                     default:
                         throw .unexpectedCharacter(character, at: location)
                     }
