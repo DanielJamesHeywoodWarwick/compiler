@@ -6,13 +6,13 @@ public func tokens(for text: String) throws(LexingError) -> [Token] {
     for (lineNumber, line) in zip(1..., text.split(omittingEmptySubsequences: false, whereSeparator: \.isNewline)) {
         var columnNumber = 1
         var unlexedText = line.prefix(upTo: line.firstRange(of: "//")?.lowerBound ?? line.endIndex)
+        var isAtStartOfLine = true
         while let character = unlexedText.first {
             if character.isWhitespace {
                 columnNumber += 1
                 unlexedText.removeFirst()
             } else {
                 let token: Token
-                let isAtStartOfLine = tokens.last.map { token in lineNumber > token.location.line } ?? true
                 let location = SourceLocation(line: lineNumber, column: columnNumber)
                 if let match = unlexedText.prefixMatch(of: /[a-zA-Z_][a-zA-Z_0-9]*/) {
                     token = switch match.output {
@@ -49,6 +49,7 @@ public func tokens(for text: String) throws(LexingError) -> [Token] {
                 }
                 columnNumber += token.description.count
                 unlexedText.trimPrefix(token.description)
+                isAtStartOfLine = false
                 tokens.append(token)
             }
         }
