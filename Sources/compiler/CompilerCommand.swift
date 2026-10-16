@@ -36,7 +36,7 @@ struct CompilerCommand: ParsableCommand {
                             uninitializedBytes = UnsafeMutableRawBufferPointer(rebasing: uninitializedBytes.dropFirst(bytesRead))
                         }
                         do throws(UTF8.ValidationError) {
-                            return String(copying: try UTF8Span(validating: buffer.span))
+                            return try String(copying: UTF8Span(validating: buffer.span))
                         } catch {
                             let message = switch error.kind {
                             case .invalidNonSurrogateCodePointByte:
