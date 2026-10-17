@@ -33,3 +33,11 @@ public struct ParsingError: Hashable, Error {
         ParsingError(_kind: .unexpectedToken(token), expecting: expectation)
     }
 }
+
+extension ParsingError: CustomDebugStringConvertible {
+    
+    @inlinable
+    public var debugDescription: String {
+        "Parsing.ParsingError(kind: \(String(reflecting: kind)), expectation: \(String(reflecting: expectation)))"
+    }
+}
