@@ -36,7 +36,7 @@ extension ArraySlice<Token> {
         }
         switch firstToken.kind {
         case .returnKeyword:
-            let expression = if let first, first.kind != .returnKeyword, first.kind != .closingBrace {
+            let expression = if let first, ![.returnKeyword, .closingBrace].contains(first.kind) {
                 try _parseExpression()
             } else { nil as Expression? }
             return .return(expression, at: firstToken.location)
