@@ -71,7 +71,7 @@ struct CompilerCommand: ParsableCommand {
             for (path, tokens) in zip(sourcePaths, tokensForSourceFiles) {
                 print("Tokens for '\(path)':")
                 for token in tokens {
-                    let kindDescription = switch token.kind {
+                    let tokenKindDescription = switch token.kind {
                     case .identifier:
                         "Identifier"
                     case .externalKeyword, .functionKeyword, .publicKeyword, .returnKeyword:
@@ -89,7 +89,7 @@ struct CompilerCommand: ParsableCommand {
                     case .arrow:
                         "Arrow"
                     }
-                    print("  \(kindDescription) '\(token)' at line \(token.location.line), column \(token.location.column)")
+                    print("  \(tokenKindDescription) '\(token)' at line \(token.location.line), column \(token.location.column)")
                 }
                 print()
             }
