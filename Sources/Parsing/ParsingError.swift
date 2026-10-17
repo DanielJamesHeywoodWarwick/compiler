@@ -38,6 +38,32 @@ extension ParsingError: CustomStringConvertible {
     
     @inlinable
     public var description: String {
+        let kindDescription: String
+        switch kind {
+        case .unexpectedEndOfFile:
+            kindDescription = "reached the end of the file"
+        case let .unexpectedToken(token):
+            let tokenKindDescription = switch token.kind {
+            case .identifier:
+                "the identifier"
+            case .externalKeyword, .functionKeyword, .publicKeyword, .returnKeyword:
+                "the keyword"
+            case .integerLiteral:
+                "the integer literal"
+            case .openingParenthesis:
+                "an opening parenthesis"
+            case .closingParenthesis:
+                "a closing parenthesis"
+            case .openingBrace:
+                "an opening brace"
+            case .closingBrace:
+                "a closing brace"
+            case .arrow:
+                "an arrow"
+            }
+            let tokenLocationDescription = "at line \(token.location.line), column \(token.location.column)"
+            kindDescription = "got \(tokenKindDescription) '\(token)' \(tokenLocationDescription)"
+        }
         let expectationDescription = switch expectation {
         case .type:
             "a type"
@@ -46,7 +72,7 @@ extension ParsingError: CustomStringConvertible {
         case .statement:
             "a statement"
         }
-        return "Expected \(expectationDescription)"
+        return "Expected \(expectationDescription), but \(kindDescription)"
     }
 }
 
