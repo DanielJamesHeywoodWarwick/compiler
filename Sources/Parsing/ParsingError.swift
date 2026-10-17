@@ -34,6 +34,22 @@ public struct ParsingError: Hashable, Error {
     }
 }
 
+extension ParsingError: CustomStringConvertible {
+    
+    @inlinable
+    public var description: String {
+        let expectationDescription = switch expectation {
+        case .type:
+            "a type"
+        case .expression:
+            "an expression"
+        case .statement:
+            "a statement"
+        }
+        return "Expected \(expectationDescription)"
+    }
+}
+
 extension ParsingError: CustomDebugStringConvertible {
     
     @inlinable
